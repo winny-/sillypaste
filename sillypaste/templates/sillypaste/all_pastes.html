@@ -1,0 +1,14 @@
+{% extends "sillypaste/base.html" %}
+{% block title %}All Pastes{% endblock %}
+{% block content %}
+{% if pastes %}
+<table>
+  <tr><th>id</th><th>title</th><th>timestamp</th></tr>
+  {% for p in pastes %}
+  <tr><td><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td><td>{{ p.title }}</td><td>{{ p.timestamp }}</td></tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No pastes.</p>
+{% endif %}
+{% endblock %}

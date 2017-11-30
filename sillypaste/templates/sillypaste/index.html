@@ -1,0 +1,17 @@
+{% extends "sillypaste/base.html" %}
+
+{% block title %}Welcome to Silly Paste{% endblock %}
+
+{% block content %}
+<h4>Recent Pastes</h4>
+{% if not recent %}
+<p>No pastes found.</p>
+{% else %}
+<ul>
+  {% for p in recent %}
+  <li>{{p.timestamp}}&nbsp;-&nbsp;<a href="{% url "show_paste" p.id %}">{{ p.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+<p>Made with no love by <a href="https://github.com/winny-">winny</a></p>
+{% endblock %}

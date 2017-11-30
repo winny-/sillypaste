@@ -1,0 +1,7 @@
+{% extends "sillypaste/base.html" %}
+{% block title %}{{ paste.title }}{% endblock %}
+{% block content %}
+<h1>{{ paste.title }}</h1>
+<p>Time: {{ paste.timestamp }}</p>
+<textarea readonly="true">{{ paste.body }}</textarea>
+{% endblock %}

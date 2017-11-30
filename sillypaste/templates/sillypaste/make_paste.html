@@ -1,0 +1,11 @@
+{% extends "sillypaste/base.html" %}
+{% block title %}Make a new paste{% endblock %}
+{% block content %}
+<form action="{% url "make_paste" %}" method="post">
+  {% csrf_token %}
+  <label for="title">Title: </label>
+  <input id="title" type="text" name="title" placeholder="Your title here">
+  <textarea id="body" name="body" placeholder="Your text here"></textarea>
+  <input type="submit" value="Make paste">
+</form>
+{% endblock %}
