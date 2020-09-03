@@ -3,5 +3,6 @@
 {% block content %}
 <h1>{{ paste.title }}</h1>
 <p>Time: {{ paste.timestamp }}</p>
+<p><a href="{% url 'show_raw' paste.id %}">Raw</a></p>
 <textarea readonly="true">{{ paste.body }}</textarea>
 {% endblock %}

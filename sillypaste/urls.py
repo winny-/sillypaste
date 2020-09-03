@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
-    url(r'^paste$', views.make_paste, name='make_paste'),
-    url(r'^(?P<paste_id>[0-9]+)', views.show_paste, name='show_paste'),
-    url(r'^all$', views.all_pastes, name='all_pastes'),
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('paste', views.make_paste, name='make_paste'),
+    path('<int:paste_id>', views.show_paste, name='show_paste'),
+    path('all', views.all_pastes, name='all_pastes'),
+    path('<int:paste_id>/raw', views.show_raw, name='show_raw'),
 ]

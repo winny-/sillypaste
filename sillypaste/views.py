@@ -18,6 +18,11 @@ def show_paste(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
     return render(request, 'sillypaste/show_paste.html', {'paste':p})
 
+@require_GET
+def show_raw(request, paste_id):
+    p = get_object_or_404(Paste, pk=paste_id)
+    return HttpResponse(p.body, content_type='text/plain')
+
 @require_http_methods(['GET', 'POST'])
 def make_paste(request):
     if request.method == 'POST':
