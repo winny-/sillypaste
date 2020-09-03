@@ -1,69 +1,7 @@
+.bg-lightsalmon {
+    background: lightsalmon;
+}
+
 textarea {
-    height: 60%;
-    width:100%;
-}
-
-#content {
-    max-width: 100%;
-    margin: 6px;
-}
-
-#navbar {
-    background-color: lightsalmon;
-}
-
-.inline-list {
-    list-style-type: none;
-    padding: 0px;
-}
-
-.inline-list li {
-    display: inline;
-    padding-right: 5rem;
-}
-
-.inline-list li:last-child {
-    padding-right:0
-}
-
-#navbar ul {
-    margin: 0;
-    padding: 5px;
-    list-style-type: none;
-}
-
-#footer {
-    margin-top:2rem;
-    text-align: center;
-}
-
-#footer ul li {
-    display: inline;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-
-#navbar ul li {
-    display: inline;
-    padding-left: 12px;
-    padding-right: 12px;
-}
-
-#navbar ul li:first-child {
-    padding-left: 0px;
-}
-
-#navbar ul li:last-child {
-    padding-right: 0px;
-}
-
-#all-pastes, #raw {
-    float: right;
-}
-
-#error-message {
-    text-align: center;
-    background-color: tomato;
-    color: black;
+    resize: vertical;
 }

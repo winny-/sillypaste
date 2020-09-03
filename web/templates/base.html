@@ -3,41 +3,44 @@
 <head>
   <title>{% block title %}{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+        href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
   <link rel="stylesheet" href="{% static 'sillypaste/style.css' %}">
 </head>
 <body>
-  <nav id="navbar">
-    <ul>
-      <li><a href="{% url "index" %}">Home</a></li>
-      <li><a href="{% url "make_paste" %}">Make a paste</a></li>
-      <li id="all-pastes"><a href="{% url "all_pastes" %}">All pastes</a></li>
-    </ul>
+  <nav id="navbar" class="flex pa2 bg-lightsalmon">
+    <div class="w-two-thirds flex">
+      <div class="pr2">
+        <a class="link blue dim" href="{% url 'index' %}">Home</a>
+      </div>
+      <div class="ph2">
+        <a class="link blue dim" href="{% url 'make_paste' %}">Make a paste</a>
+      </div>
+    </div>
+    <div class="w-third tr">
+      <a class="link blue dim" href="{% url 'all_pastes' %}">All pastes</a>
+    </div>
   </nav>
-  </div>
   {% if error_message %}
-  <div id="error-message">
-    <p>Error: {{ error_message }}</p>
+  <div id="error-message" class="tc bg-red black pa2">
+    Error: {{ error_message }}
   </div>
   {% endif %}
-  <div id="content">
+  <div class="ma2 mw-100" id="content">
     {% block content %}{% endblock %}
   </div>
-  <div id="footer">
+  <div id="footer" class="pa1">
     <hr>
-    <ul>
-      <li>
+    <div class="flex ph2">
+      <div class='w-third tl pr2'>
         Made with some love by <a href="https://winny.tech/">winny</a>.
-      </li>
-      <li>
+      </div>
+      <div class='w-third tc ph2'>
         Grab the <a href="https://github.com/winny-/sillypaste">source code</a>.
-      </li>
-      <li>
+      </div>
+      <div class='w-third tr pl2'>
         <a href="{% url 'admin:index' %}">Admin</a>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 </body>

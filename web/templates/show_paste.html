@@ -1,12 +1,23 @@
 {% extends "base.html" %}
 {% block title %}{{ paste.title }}{% endblock %}
 {% block content %}
-<h1>{{ paste.title }}</h1>
-<ul class="inline-list">
-  <li>{{ paste.timestamp }}</li>
-  <li>{{ paste.body|length|filesizeformat }}</li>
-  <li>Expires: {{ paste.expiry|default:'never' }}</li>
-  <li id='raw'><a href="{% url 'show_raw' paste.id %}">Raw</a></li>
-</ul>
-<textarea readonly="true">{{ paste.body }}</textarea>
+<div class="flex">
+  <h1 class="f2 ma0 w-90">{{ paste.title }}</h1>
+  <a class="w-10 tr f5" href="{% url 'show_raw' paste.id %}">Raw</a>
+</div>
+<div class="flex mv3">
+  <div class="w-40 flex flex-column mr1">
+    <div class="w-25 f4 b tr">Created</div>
+    <div class="w-75">{{ paste.timestamp }}</div>
+  </div>
+  <div class="w-40 flex flex-column ml1">
+    <div class="w-25 f4 b">Expires</div>
+    <div class="w-75">{{ paste.expiry|default:"Never" }}</div>
+  </div>
+  <div class="w-20 flex flex-column ml1">
+    <div class="w-25 f4 b">Size</div>
+    <div class="w-75">{{ paste.body|length|filesizeformat }}</div>
+  </div>
+</div>
+<textarea class="code w-100 h-75 mt1" readonly="true">{{ paste.body }}</textarea>
 {% endblock %}
