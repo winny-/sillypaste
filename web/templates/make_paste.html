@@ -5,6 +5,13 @@
   {% csrf_token %}
   <label for="title">Title: </label>
   <input id="title" type="text" name="title" placeholder="Your title here">
+  <div>
+    Expires after
+    <input type="radio" id="expiry-1day" name="expiry" value="1day" checked>
+    <label for="expiry-1day">1 day</label>
+    <input type="radio" id="expiry-never" name="expiry" value="never">
+    <label for="expiry-1day">Never</label>
+  </div>
   <textarea id="body" name="body" placeholder="Your text here"></textarea>
   <input type="submit" value="Make paste">
 </form>

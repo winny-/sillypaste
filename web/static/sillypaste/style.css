@@ -12,6 +12,20 @@ textarea {
     background-color: lightsalmon;
 }
 
+.inline-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.inline-list li {
+    display: inline;
+    padding-right: 5rem;
+}
+
+.inline-list li:last-child {
+    padding-right:0
+}
+
 #navbar ul {
     margin: 0;
     padding: 5px;
@@ -44,7 +58,7 @@ textarea {
     padding-right: 0px;
 }
 
-#all-pastes {
+#all-pastes, #raw {
     float: right;
 }
 

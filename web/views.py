@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404, render
 from django.views.decorators.http import require_GET, require_http_methods
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
+from django.utils import timezone
+from datetime import timedelta
 
 from core.models import Paste
 
@@ -27,19 +29,26 @@ def show_raw(request, paste_id):
 def make_paste(request):
     if request.method == 'POST':
         try:
-            title, body = request.POST['title'].strip(), request.POST['body']
+            title = request.POST['title'].strip()
+            body = request.POST['body']
+            expiry = request.POST.get('expiry', '1day').strip()
         except KeyError:
             return render(request, 'make_paste.html', {'error_message': 'Invalid submission'})
         else:
             if not title or not body:
                 return render(request, 'make_paste.html', {'error_message': 'Empty field(s)'})
+            if expiry not in ('never', '1day', ):
+                return render(request, 'make_paste.html', {'error_message': 'Bad expiry value'})
             exists = Paste.objects.filter(body=body)
             if exists:
                 return HttpResponseRedirect(reverse(
                     'show_paste',
                     kwargs={'paste_id':exists.first().id},
                 ))
-            p = Paste(title=title, body=body)
+            expiry_time = None
+            if expiry == '1day':
+                expiry_time = timezone.now() + timedelta(days=1)
+            p = Paste(title=title, body=body, expiry=expiry_time)
             p.save()
             return HttpResponseRedirect(reverse(
                 'show_paste',

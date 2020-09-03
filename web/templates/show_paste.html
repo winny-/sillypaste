@@ -2,7 +2,11 @@
 {% block title %}{{ paste.title }}{% endblock %}
 {% block content %}
 <h1>{{ paste.title }}</h1>
-<p>Time: {{ paste.timestamp }}</p>
-<p><a href="{% url 'show_raw' paste.id %}">Raw</a></p>
+<ul class="inline-list">
+  <li>{{ paste.timestamp }}</li>
+  <li>{{ paste.body|length|filesizeformat }}</li>
+  <li>Expires: {{ paste.expiry|default:'never' }}</li>
+  <li id='raw'><a href="{% url 'show_raw' paste.id %}">Raw</a></li>
+</ul>
 <textarea readonly="true">{{ paste.body }}</textarea>
 {% endblock %}
