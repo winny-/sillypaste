@@ -1,6 +1,9 @@
 # Silly Paste
 
-Yet another Django pastebin. Written for a lab.
+Yet another Django pastebin.  Written for a lab and later improved for casual
+use.
+
+See example instance [here](https://sillypaste.herokuapp.com/).
 
 ## LICENSE
 
