@@ -3,9 +3,19 @@
 {% block content %}
 {% if pastes %}
 <table>
-  <tr><th>id</th><th>title</th><th>timestamp</th></tr>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Timestamp</th>
+    <th>Size</th>
+  </tr>
   {% for p in pastes %}
-  <tr><td><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td><td>{{ p.title }}</td><td>{{ p.timestamp }}</td></tr>
+  <tr>
+    <td><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
+    <td>{{ p.title }}</td>
+    <td>{{ p.timestamp }}</td>
+    <td>{{ p.body|length|filesizeformat }}</td>
+  </tr>
   {% endfor %}
 </table>
 {% else %}
