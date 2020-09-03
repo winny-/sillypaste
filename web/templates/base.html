@@ -26,4 +26,18 @@
   <div id="content">
     {% block content %}{% endblock %}
   </div>
+  <div id="footer">
+    <hr>
+    <ul>
+      <li>
+        Made with some love by <a href="https://winny.tech/">winny</a>.
+      </li>
+      <li>
+        Grab the <a href="https://github.com/winny-/sillypaste">source code</a>.
+      </li>
+      <li>
+        <a href="{% url 'admin:index' %}">Admin</a>
+      </li>
+    </ul>
+  </div>
 </body>
