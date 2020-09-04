@@ -2,6 +2,15 @@
     background: lightsalmon;
 }
 
+.w-15 {
+    width: 15%;
+}
+
 textarea {
     resize: vertical;
 }
+
+/* Extracted from tachyons for default link style */
+a { opacity: 1; transition: opacity .15s ease-in; }
+a:hover, a:focus { opacity: .5; transition: opacity .15s ease-in; }
+a:active { opacity: .8; transition: opacity .15s ease-out; }

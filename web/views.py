@@ -9,7 +9,10 @@ from core.models import Paste
 
 @require_GET
 def index(request):
-    return render(request, 'index.html', {'recent': Paste.objects.order_by('-timestamp')[:20]})
+    return render(request, 'index.html', {
+        'recent': Paste.objects.order_by('-timestamp')[:20],
+        'top': Paste.objects.filter(hits__gt=0).order_by('-hits')[:5],
+    })
 
 @require_GET
 def all_pastes(request):
@@ -18,11 +21,12 @@ def all_pastes(request):
 @require_GET
 def show_paste(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
-    return render(request, 'show_paste.html', {'paste':p})
+    return render(request, 'show_paste.html', {'paste':p.view()})
 
 @require_GET
 def show_raw(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
+    p.view()
     return HttpResponse(p.body, content_type='text/plain; charset=utf-8')
 
 @require_http_methods(['GET', 'POST'])

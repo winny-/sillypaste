@@ -11,14 +11,14 @@
   <nav id="navbar" class="flex pa2 bg-lightsalmon">
     <div class="w-two-thirds flex">
       <div class="pr2">
-        <a class="link blue dim" href="{% url 'index' %}">Home</a>
+        <a class="link blue" href="{% url 'index' %}">Home</a>
       </div>
       <div class="ph2">
-        <a class="link blue dim" href="{% url 'make_paste' %}">Make a paste</a>
+        <a class="link blue" href="{% url 'make_paste' %}">Make a paste</a>
       </div>
     </div>
     <div class="w-third tr">
-      <a class="link blue dim" href="{% url 'all_pastes' %}">All pastes</a>
+      <a class="link blue" href="{% url 'all_pastes' %}">All pastes</a>
     </div>
   </nav>
   {% if error_message %}
@@ -38,8 +38,13 @@
       <div class='w-third tc ph2'>
         Grab the <a href="https://github.com/winny-/sillypaste">source code</a>.
       </div>
-      <div class='w-third tr pl2'>
-        <a href="{% url 'admin:index' %}">Admin</a>
+      <div class='w-third tr pl2 flex flex-column'>
+        <div class='mb2'>
+          <a href="{% url 'admin:index' %}">Admin</a>
+        </div>
+        <div>
+          {% now 'DATETIME_FORMAT' %}
+        </div>
       </div>
     </div>
   </div>
