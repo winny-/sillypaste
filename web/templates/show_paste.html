@@ -1,10 +1,13 @@
 {% extends "base.html" %}
-{% block title %}{{ paste.title }}{% endblock %}
+{% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block content %}
 <div class="flex">
   <h1 class="f2 ma0 w-90">{{ paste.title }}</h1>
-  <div class="w-10 tr f5">
-    <div class="mt3">
+  <div class="w-10 flex flex-column tr f5">
+    <div class="h-40">
+      #{{ paste.id }}
+    </div>
+    <div class="h-60">
       <a href="{% url 'show_raw' paste.id %}">Raw</a>
     </div>
   </div>
