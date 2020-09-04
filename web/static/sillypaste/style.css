@@ -6,6 +6,10 @@
     width: 15%;
 }
 
+.w-35 {
+    width: 35%;
+}
+
 textarea {
     resize: vertical;
 }
