@@ -27,5 +27,7 @@
     <div class="h-80">{{ paste.hits }}</div>
   </div>
 </div>
-<textarea class="code w-100 h-75 mt1" readonly="true">{{ paste.body }}</textarea>
+<input type="checkbox" id="toggle-wrap">
+<label for="toggle-wrap">Wrap long lines</label>
+<pre class="code w-100 mt1 ba bw1 b--dark-gray ph1 pv2">{{ paste.body }}</pre>
 {% endblock %}
