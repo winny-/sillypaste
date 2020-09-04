@@ -1,28 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Make a new paste{% endblock %}
 {% block content %}
+
 <form action="{% url "make_paste" %}" method="post">
   {% csrf_token %}
-  <div class="flex f3 pv1 mb1">
-    <label class="w-25" for="title">Title</label>
-    <input class="w-75" id="title" type="text" name="title" placeholder="Your title here">
-  </div>
-  <div class="flex f5 mv2">
-    <div class="w-third">
-      Expires after
-    </div>
-    <div class="w-two-thirds tr">
-      <div class="dib ph2">
-        <input type="radio" id="expiry-1day" name="expiry" value="1day" checked>
-        <label for="expiry-1day">1 day</label>
-      </div>
-      <div class="dib ph2">
-        <input type="radio" id="expiry-never" name="expiry" value="never">
-        <label for="expiry-never">Never</label>
-      </div>
-    </div>
-  </div>
-  <textarea class="code w-100 h-75 mt1" id="body" name="body" placeholder="Your text here"></textarea>
+{% include "paste_form_snippet.html" %}
+
   <input class="w-100 h2 mv1 bg-light-blue black br2" type="submit" value="Make paste">
 </form>
 {% endblock %}

@@ -1,12 +1,13 @@
 from django.db import models
 from django.core.validators import validate_comma_separated_integer_list
 
+
 __all__ = ['Paste', 'ExpiryLog']
 
 
 class Paste(models.Model):
     title = models.CharField(max_length=100)
-    body = models.TextField()
+    body = models.TextField(unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(null=True, blank=True)
     hits = models.PositiveIntegerField(default=0)

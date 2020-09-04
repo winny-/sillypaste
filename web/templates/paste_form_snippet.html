@@ -1,0 +1,34 @@
+{% for hidden in form.hidden_fields %}
+{{ hidden }}
+{% endfor %}
+<div class="flex f3 pv1 justify-between">
+  <label class="w-25" for="{{ form.title.id_for_label }}">
+    Title
+  </label>
+  <input class="w-75" id="{{ form.title.id_for_label }}" type="text" name="{{ form.title.html_name }}" placeholder="Your title here" value="{{ form.title.value|default:'' }}">
+</div>
+<div class="flex f5 mv2 justify-between">
+  <div class="w-25">
+    Expires after
+  </div>
+  <div class="w-75 flex flex-wrap justify-around items-center">
+    {% for preset in form.EXPIRY_CHOICES_NO_CUSTOM %}
+    <div class="mh1">
+      <input id="expiry_preset_{{ preset.0 }}"
+             type="radio"
+             name="{{ form.expiry_preset.html_name }}"
+             value="{{ preset.0 }}"{% if preset.0 == form.expiry_preset.value %} checked{% endif %}>
+      <label for="expiry_preset_{{ preset.0 }}">{{ preset.1 }}</label>
+    </div>
+    {% endfor %}
+    <div class="mh1">
+      <input id="expiry_preset_custom"
+             type="radio"
+             name="{{ form.expiry_preset.html_name }}"
+             value="custom"{% if form.expiry_preset.value == 'custom' %} checked{% endif %}>
+      <label for="expiry_preset_custom">Custom</label>
+      <input class="mw-100" id="{{ form.custom_expiry.id_for_label }}" name="{{ form.custom_expiry.html_name }}" type="datetime-local"{% if form.custom_expiry.value %}value="{{ form.custom_expiry.value }}"{% endif %}>
+    </div>
+  </div>
+</div>
+<textarea class="code w-100 h-75" id="body" name="{{ form.body.html_name }}" placeholder="Your text here">{{ form.body.value|default:'' }}</textarea>
