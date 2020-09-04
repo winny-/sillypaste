@@ -23,7 +23,7 @@ def show_paste(request, paste_id):
 @require_GET
 def show_raw(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
-    return HttpResponse(p.body, content_type='text/plain')
+    return HttpResponse(p.body, content_type='text/plain; charset=utf-8')
 
 @require_http_methods(['GET', 'POST'])
 def make_paste(request):
