@@ -66,7 +66,7 @@ def make_paste(request):
 def show_site_stats(request):
     return render(request, 'show_site_stats.html', {
         'total_pastes_count': Paste.objects.count(),
-        'total_pastes_size': sum(p.size() for p in Paste.objects.all()),
+        'total_pastes_size': Paste.objects.aggregate(total=Sum('size'))['total'],
         'last_expiry_log': ExpiryLog.objects.last(),
         'total_reclaimed_count': ExpiryLog.objects.aggregate(x=Count('count'))['x'],
         'total_reclaimed_space': ExpiryLog.objects.aggregate(x=Sum('reclaimed_space'))['x'],
