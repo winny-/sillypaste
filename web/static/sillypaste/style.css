@@ -19,7 +19,7 @@ pre {
 }
 
 /* Via https://css-tricks.com/the-checkbox-hack/ */
-#toggle-wrap:checked ~ pre {
+div #toggle-wrap:checked ~ pre {
     white-space: pre-wrap;
 }
 

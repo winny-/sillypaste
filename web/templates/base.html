@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{% static 'sillypaste/style.css' %}">
 </head>
 <body>
-  <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p">
+  <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p bb">
     <!-- Left -->
     <div class="flex flex-wrap">
       <div class="ma2 tl">
@@ -30,14 +30,14 @@
     </div>
   </nav>
   {% if error_message %}
-  <div id="error-message" class="tc bg-red black pa2">
+  <div id="error-message" class="tc bg-red black pa2 bb">
     Error: {{ error_message }}
   </div>
   {% endif %}
   <div class="ma2 mw-100 mh0-p" id="content">
     {% block content %}{% endblock %}
   </div>
-  <div id="footer" class="pa1">
+  <div id="footer" class="pa1 bg-moon-gray black bt bb bb-0-p bg-white-p bw1-p">
     <div class="flex ph2">
       <div class="dn w-50-p db-p">
         Silly Paste

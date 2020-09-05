@@ -31,9 +31,7 @@
     <div class="h-80">{{ paste.hits }}</div>
   </div>
 </div>
-<div class="dn-p">
-  <input type="checkbox" id="toggle-wrap">
-  <label for="toggle-wrap">Wrap long lines</label>
-</div>
-<pre class="code w-100 mt1 ba bw1 b--dark-gray ph1 pv2 br-0-p bl-0-p ph0-p bb-p bt-p b--black-p">{{ paste.body }}</pre>
+<input type="checkbox" id="toggle-wrap" class="dn-p">
+<label for="toggle-wrap" class="dn-p">Wrap long lines</label>
+<pre class="code w-100 mt1 ba bw1 b--dark-gray ph1 pv2 br-0-p bl-0-p ph0-p bb-0-p b--black-p">{{ paste.body }}</pre>
 {% endblock %}
