@@ -21,9 +21,10 @@
     <div class="h-20 f4 b">Expires</div>
     <div class="h-80">{{ paste.expiry|default:"Never" }}</div>
   </div>
-  <div class="w-20 flex flex-column mh1">
+  <div class="w-20 flex flex-column mh1"
+       title="The title length plus the body length.  (Both as utf-8 bytes.)">
     <div class="h-20 f4 b">Size</div>
-    <div class="h-80">{{ paste.body|length|filesizeformat }}</div>
+    <div class="h-80">{{ paste.size|filesizeformat }}</div>
   </div>
   <div class="w-20 flex flex-column ml1">
     <div class="h-20 f4 b">Hits</div>

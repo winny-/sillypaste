@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Statistics{% endblock %}
+{% block content %}
+<h1>Usage</h1>
+<p>{{ total_pastes_count }} un-expired paste, using {{ total_pastes_size | filesizeformat }}.</p>
+<h1>Expiry</h1>
+<p>{{ total_reclaimed_count }} pastes reclaimed.</p>
+<p>{{ total_reclaimed_space | filesizeformat }} reclaimed.</p>
+{% if last_expiry_log %}
+<h2>Last Expiry Check</h2>
+<p>Reclaimed {{ last_expiry_log.count }} pastes at {{ last_expiry_log.timestamp }} saving {{ last_expiry_log.reclaimed | filesizeformat }}.</p>
+{% if not last_expiry_log.completed %}
+<p>This expiry check is marked as incomplete.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

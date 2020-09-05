@@ -4,8 +4,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.utils import timezone
 from datetime import timedelta
+from django.db.models import Sum, Count
 
-from core.models import Paste
+from core.models import Paste, ExpiryLog
 
 @require_GET
 def index(request):
@@ -60,3 +61,13 @@ def make_paste(request):
             ))
     else:
         return render(request, 'make_paste.html')
+
+@require_GET
+def show_site_stats(request):
+    return render(request, 'show_site_stats.html', {
+        'total_pastes_count': Paste.objects.count(),
+        'total_pastes_size': sum(p.size() for p in Paste.objects.all()),
+        'last_expiry_log': ExpiryLog.objects.last(),
+        'total_reclaimed_count': ExpiryLog.objects.aggregate(x=Count('count'))['x'],
+        'total_reclaimed_space': ExpiryLog.objects.aggregate(x=Sum('reclaimed_space'))['x'],
+    })

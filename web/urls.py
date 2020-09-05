@@ -25,4 +25,5 @@ urlpatterns = [
     path('<int:paste_id>', views.show_paste, name='show_paste'),
     path('all', views.all_pastes, name='all_pastes'),
     path('<int:paste_id>/raw', views.show_raw, name='show_raw'),
+    path('stats', views.show_site_stats, name='show_site_stats'),
 ]

@@ -17,7 +17,7 @@
     <td>{{ p.title }}</td>
     <td>{{ p.timestamp }}</td>
     <td>{{ p.expiry|default:"Never" }}</td>
-    <td>{{ p.body|length|filesizeformat }}</td>
+    <td>{{ p.size|filesizeformat }}</td>
     <td>{{ p.hits }}</td>
   </tr>
   {% endfor %}
