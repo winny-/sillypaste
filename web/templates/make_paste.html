@@ -2,10 +2,9 @@
 {% block title %}Make a new paste{% endblock %}
 {% block content %}
 
-<form action="{% url "make_paste" %}" method="post">
+<form action="{% url "make_paste" %}" method="post" class="flex flex-column h-100">
   {% csrf_token %}
-{% include "paste_form_snippet.html" %}
-
+  {% include "paste_form_snippet.html" %}
   <input class="w-100 h2 mv1 bg-light-blue black br2" type="submit" value="Make paste">
 </form>
 {% endblock %}

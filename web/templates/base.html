@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'sillypaste/tachyons-print.css' %}">
   <link rel="stylesheet" href="{% static 'sillypaste/style.css' %}">
 </head>
-<body>
+<body class="flex flex-column vh-100">
   <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p bb">
     <!-- Left -->
     <div class="flex flex-wrap">
@@ -30,14 +30,14 @@
     </div>
   </nav>
   {% if error_message %}
-  <div id="error-message" class="tc bg-red black pa2 bb">
+  <div id="error-message" class="tc bg-light-red bg-white-p black pa2 bb">
     Error: {{ error_message }}
   </div>
   {% endif %}
-  <div class="ma2 mw-100 mh0-p" id="content">
+  <div class="ma2 mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p" id="content">
     {% block content %}{% endblock %}
   </div>
-  <div id="footer" class="pa1 bg-moon-gray black bt bb bb-0-p bg-white-p bw1-p">
+  <div id="footer" class="pa1 bg-moon-gray black bt bg-white-p bw1-p">
     <div class="flex ph2">
       <div class="dn w-50-p db-p">
         Silly Paste
