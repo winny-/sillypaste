@@ -123,6 +123,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
+# Only redirect on heroku.  Every other deployment environment I am targeting
+# handles this for the application.  And locally one probably does not have
+# HTTPS set up.
+if 'DYNO' in os.environ:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+
+
 import django_heroku
 django_heroku.settings(locals())
 
