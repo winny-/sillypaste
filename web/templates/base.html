@@ -7,34 +7,37 @@
         href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
   <link rel="stylesheet" href="{% static 'sillypaste/tachyons-print.css' %}">
   <link rel="stylesheet" href="{% static 'sillypaste/style.css' %}">
+  {% block head %}{% endblock %}
 </head>
 <body class="flex flex-column vh-100">
-  <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p bb">
-    <!-- Left -->
-    <div class="flex flex-wrap">
-      <div class="ma2 tl">
-        <a class="link blue" href="{% url 'index' %}">Home</a>
+  <div>
+    <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p bb">
+      <!-- Left -->
+      <div class="flex flex-wrap">
+        <div class="ma2 tl">
+          <a class="link blue" href="{% url 'index' %}">Home</a>
+        </div>
+        <div class="ma2 tl">
+          <a class="link blue" href="{% url 'make_paste' %}">Make a paste</a>
+        </div>
       </div>
-      <div class="ma2 tl">
-        <a class="link blue" href="{% url 'make_paste' %}">Make a paste</a>
+      <!-- Right -->
+      <div class="flex flex-wrap">
+        <div class="ma2">
+          <a class="link blue tr" href="{% url 'show_site_stats' %}">Statistics</a>
+        </div>
+        <div class="ma2 tr">
+          <a class="link blue tr" href="{% url 'all_pastes' %}">All pastes</a>
+        </div>
       </div>
-    </div>
-    <!-- Right -->
-    <div class="flex flex-wrap">
-      <div class="ma2">
-        <a class="link blue tr" href="{% url 'show_site_stats' %}">Statistics</a>
-      </div>
-      <div class="ma2 tr">
-        <a class="link blue tr" href="{% url 'all_pastes' %}">All pastes</a>
-      </div>
-    </div>
-  </nav>
+    </nav>
+  </div>
   {% if error_message %}
   <div id="error-message" class="tc bg-light-red bg-white-p black pa2 bb">
     Error: {{ error_message }}
   </div>
   {% endif %}
-  <div class="ma2 mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p" id="content">
+  <div class="ma2 mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p flex flex-column" id="content">
     {% block content %}{% endblock %}
   </div>
   <div id="footer" class="pa1 bg-moon-gray black bt bg-white-p bw1-p">

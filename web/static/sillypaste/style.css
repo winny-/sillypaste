@@ -13,18 +13,11 @@
 }
 
 
-textarea {
-    resize: vertical;
-}
+textarea { resize: none; }
 
-pre {
-    overflow-x: auto;
-}
+pre { overflow-x: auto; }
 
-/* Via https://css-tricks.com/the-checkbox-hack/ */
-div #toggle-wrap:checked ~ pre {
-    white-space: pre-wrap;
-}
+.word-wrap { white-space: pre-wrap; }
 
 /* Force word wrapping on print */
 @media print {
@@ -33,9 +26,7 @@ div #toggle-wrap:checked ~ pre {
     }
 }
 
-
 /* Extracted from tachyons for default link style */
 a { opacity: 1; transition: opacity .15s ease-in; }
 a:hover, a:focus { opacity: .5; transition: opacity .15s ease-in; }
 a:active { opacity: .8; transition: opacity .15s ease-out; }
-
