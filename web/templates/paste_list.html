@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Pastes{% endblock %}
+{% block content %}
+{% if object_list %}
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Timestamp</th>
+    <th>Expires</th>
+    <th>Size</th>
+    <th>Hits</th>
+  </tr>
+  {% for p in object_list %}
+  <tr>
+    <td><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
+    <td>{{ p.title }}</td>
+    <td>{{ p.timestamp }}</td>
+    <td>{{ p.expiry|default:"Never" }}</td>
+    <td>{{ p.size|filesizeformat }}</td>
+    <td>{{ p.hits }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>No pastes.</p>
+{% endif %}
+{% endblock %}

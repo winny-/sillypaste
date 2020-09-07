@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Delete this paste?{% endblock %}
+{% block content %}
+<h1>Delete paste?</h1>
+<form method='POST'>
+  {% csrf_token %}
+  {{form}}
+  <input type='submit' value='Delete'>
+</form>
+
+{% endblock %}

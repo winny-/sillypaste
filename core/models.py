@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import validate_comma_separated_integer_list
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 __all__ = ['Paste', 'ExpiryLog']
@@ -12,6 +14,12 @@ class Paste(models.Model):
     expiry = models.DateTimeField(null=True, blank=True)
     hits = models.PositiveIntegerField(default=0)
     size = models.PositiveIntegerField(default=0)
+    author = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     def save(self, *args, **kwargs):
         """On save, update estimated size of the paste."""
@@ -25,6 +33,9 @@ class Paste(models.Model):
         self.hits += 1
         self.save()
         return self
+
+    def get_absolute_url(self):
+        return reverse('show_paste', kwargs={'paste_id': self.pk})
 
 
 class ExpiryLog(models.Model):

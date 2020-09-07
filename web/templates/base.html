@@ -21,13 +21,36 @@
           <a class="link blue" href="{% url 'make_paste' %}">Make a paste</a>
         </div>
       </div>
+      <!-- Center -->
+      <div>
+        {% if request.user.is_authenticated %}
+        <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
+        {% endif %}
+      </div>
       <!-- Right -->
       <div class="flex flex-wrap">
-        <div class="ma2">
-          <a class="link blue tr" href="{% url 'show_site_stats' %}">Statistics</a>
-        </div>
         <div class="ma2 tr">
           <a class="link blue tr" href="{% url 'all_pastes' %}">All pastes</a>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="ma2 tr">
+          <a class="link blue tr" href="{% url 'my_pastes' %}">My Pastes</a>
+        </div>
+        {% endif %}
+
+        {% if request.user.is_authenticated %}
+        <div class="ma2 tr">
+          <a class="link blue tr" href="{% url 'password_change' %}">Change Password</a>
+        </div>
+        {% endif %}
+
+        <div class="ma2 tr">
+          {% if request.user.is_authenticated %}
+          <a class="link blue tr" href="{% url 'logout' %}">Log out</a>
+          {% else %}
+          <a class="link blue tr" href="{% url 'login' %}">Log in</a>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -52,11 +75,12 @@
         Grab the <a href="https://github.com/winny-/sillypaste">source code</a>.
       </div>
       <div class='w-third tr pl2 flex flex-column w-50-p'>
-        <div class='mb2 dn-p'>
-          <a href="{% url 'admin:index' %}">Admin</a>
-        </div>
         <div>
           {% now 'DATETIME_FORMAT' %}
+        </div>
+        <div>
+          <a href="{% url 'show_site_stats' %}">Statistics</a>
+          <a href="{% url 'admin:index' %}">Admin</a>
         </div>
       </div>
     </div>

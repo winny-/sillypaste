@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Edit paste{% endblock %}
+{% block content %}
+{{form.errors}}
+<form method="post" class="flex flex-column h-100 flex-grow-1">
+  {% csrf_token %}
+  {% include "paste_form_snippet.html" %}
+  <input class="w-100 h2 mv1 bg-light-blue black br2" type="submit" value="Edit paste">
+</form>
+{% endblock %}

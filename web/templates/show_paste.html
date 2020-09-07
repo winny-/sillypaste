@@ -16,8 +16,15 @@
 </script>
 {% endblock %}
 {% block content %}
+{% if owner %}
+<div class="flex justify-center bg-light-blue black ba dn-p mb1">
+  <span class="ma1">You own this paste.  Would you like to&hellip;</span>
+  <a class="ma1" href="{% url 'delete_paste' paste.id  %}">Delete this paste</a>
+  <a class="ma1" href="{% url 'edit_paste' paste.id  %}">Edit this paste</a>
+</div>
+{% endif %}
 <div class="flex">
-  <h1 class="f2 ma0 w-90">{{ paste.title }}</h1>
+  <h1 class="f2 ma1 w-90">{{ paste.title }}</h1>
   <div class="w-10 flex flex-column tr f5">
     <div class="h-40 h-100-p f3-p">
       #{{ paste.id }}
@@ -27,21 +34,25 @@
     </div>
   </div>
 </div>
-<div class="flex mv3">
-  <div class="w-35 flex flex-column mr1">
+<div class="flex flex-wrap justify-around">
+  <div class="flex flex-column ma3">
+    <div class="h-20 f4 b">Author</div>
+    <div class="h-80">{{ paste.author.username|default:'Anonymous' }}</div>
+  </div>
+  <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Created</div>
     <div class="h-80">{{ paste.timestamp }}</div>
   </div>
-  <div class="w-35 flex flex-column mh1">
+  <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Expires</div>
     <div class="h-80">{{ paste.expiry|default:"Never" }}</div>
   </div>
-  <div class="w-20 flex flex-column mh1"
+  <div class="flex flex-column ma3"
        title="The title length plus the body length.  (Both as utf-8 bytes.)">
     <div class="h-20 f4 b">Size</div>
     <div class="h-80">{{ paste.size|filesizeformat }}</div>
   </div>
-  <div class="w-20 flex flex-column ml1">
+  <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Hits</div>
     <div class="h-80">{{ paste.hits }}</div>
   </div>
