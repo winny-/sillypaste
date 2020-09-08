@@ -32,4 +32,5 @@ urlpatterns = [
     path('<int:paste_id>/raw', views.show_raw, name='show_raw'),
     path('stats', views.show_site_stats, name='show_site_stats'),
     path('my_pastes', views.ListMyPastes.as_view(), name='my_pastes'),
+    path('privacy_policy', views.PrivacyPolicy.as_view(), name='privacy_policy'),
 ]

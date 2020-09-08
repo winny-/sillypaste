@@ -56,6 +56,8 @@ class PasteUpdate(AuthorAccessingPasteViewMixin, generic.UpdateView):
     model = Paste
     template_name = 'paste_update.html'
 
+class PrivacyPolicy(generic.TemplateView):
+    template_name = 'privacy_policy.html'
 
 @require_GET
 def index(request):
