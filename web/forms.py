@@ -2,14 +2,15 @@ from django.utils import timezone
 from datetime import timedelta
 from django import forms
 from django.core.exceptions import ValidationError
-from core.models import Paste
+from core.models import Paste, Language
 from core.validators import validate_future_datetime
+from django.db.models.functions import Lower
 
 
 class PasteForm(forms.ModelForm):
     class Meta:
         model = Paste
-        fields = ['expiry', 'title', 'body']
+        fields = ['expiry', 'title', 'language', 'body']
 
     EXPIRY_CHOICES_NO_CUSTOM = [
         ('never', 'Never'),
@@ -20,6 +21,10 @@ class PasteForm(forms.ModelForm):
     expiry_preset = forms.ChoiceField(choices=EXPIRY_CHOICES, initial='1day')
     custom_expiry = forms.DateTimeField(required=False)
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['language'].queryset = Language.objects.order_by(Lower('name'))
 
     def clean(self, *args, **kwargs):
         ep = self.cleaned_data['expiry_preset']

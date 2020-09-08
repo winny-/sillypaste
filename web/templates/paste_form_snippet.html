@@ -31,4 +31,8 @@
     </div>
   </div>
 </div>
+<div>
+  {{ form.language.label_tag }}
+  {{ form.language }}
+</div>
 <textarea class="code w-100 flex-grow-1" id="body" name="{{ form.body.html_name }}" placeholder="Your text here">{{ form.body.value|default:'' }}</textarea>

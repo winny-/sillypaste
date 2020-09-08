@@ -20,6 +20,12 @@ class Paste(models.Model):
         blank=True,
         null=True,
     )
+    language = models.ForeignKey(
+        'Language',
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     def save(self, *args, **kwargs):
         """On save, update estimated size of the paste."""
@@ -36,6 +42,13 @@ class Paste(models.Model):
 
     def get_absolute_url(self):
         return reverse('show_paste', kwargs={'paste_id': self.pk})
+
+
+class Language(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class ExpiryLog(models.Model):

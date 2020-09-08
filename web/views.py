@@ -12,6 +12,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.core.exceptions import PermissionDenied
+from pygments import lexers, highlight
+from pygments.lexers.special import TextLexer
+from pygments.util import ClassNotFound
+from pygments.formatters import HtmlFormatter
 
 from web.forms import PasteForm
 from core.models import Paste, ExpiryLog
@@ -71,8 +75,22 @@ def all_pastes(request):
 @require_GET
 def show_paste(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
+    formatter = HtmlFormatter()
+    try:
+        body_html = highlight(
+            p.body,
+            lexers.find_lexer_class_by_name(p.language.name)(),
+            formatter,
+        )
+    except (ClassNotFound, AttributeError):
+        body_html = highlight(
+            p.body,
+            TextLexer(),
+            formatter
+        )
     return render(request, 'show_paste.html', {
         'paste': p.view(),
+        'paste_body_html': body_html,
         'owner': p.author is not None and p.author == request.user,
     })
 

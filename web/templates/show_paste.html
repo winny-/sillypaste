@@ -1,12 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
 <script>
  /* If anybody can get https://codepen.io/winny-/pen/BaKJYqd working I can
  delete this javascript! */
  (function(){
    window.addEventListener('load', () => {
-     const [p] = document.getElementsByTagName('pre');
+     const p = document.querySelector('#body-container pre');
      document.getElementById('toggle-wrap').addEventListener('click', ({ target }) => {
        if (target.checked) p.classList.add('word-wrap');
        else p.classList.remove('word-wrap');
@@ -62,5 +64,8 @@
   <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
   <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>
 </div>
-<pre class="code w-100 mt1 ba bw1 b--dark-gray ph1 pv2 br-0-p bl-0-p ph0-p bb-0-p b--black-p">{{ paste.body }}</pre>
+<div id='body-container' class="code w-100 mt1 ba bw1 b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p">
+  {{paste_body_html|safe}}
+</div>
+
 {% endblock %}
