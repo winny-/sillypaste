@@ -23,6 +23,13 @@ class PasteForm(forms.ModelForm):
 
 
     def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance')
+        if instance is not None:
+            kwargs.update(initial={
+                # XXX: Is there a better way to write this?
+                'custom_expiry': instance.expiry.strftime("%Y-%m-%dT%H:%M:%S") if instance.expiry else None,
+                'expiry_preset': 'custom' if instance.expiry else 'never',
+            })
         super().__init__(*args, **kwargs)
         self.fields['language'].queryset = Language.objects.order_by(Lower('name'))
 
