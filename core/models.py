@@ -8,6 +8,8 @@ __all__ = ['Paste', 'ExpiryLog']
 
 
 class Paste(models.Model):
+    class Meta:
+        ordering = ('pk', )
     title = models.CharField(max_length=100)
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
