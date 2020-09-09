@@ -12,6 +12,20 @@
     .flex-grow-2-p { flex-grow: 2; }
 }
 
+/* Via
+   https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/
+   Safari is the bane of my existence, next to IE.
+*/
+@media screen {
+    body {
+        min-height: 100vh;
+        /* mobile viewport bug fix */
+        min-height: -webkit-fill-available;
+    }
+    html {
+        height: -webkit-fill-available;
+    }
+}
 
 textarea { resize: none; }
 
