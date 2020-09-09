@@ -27,7 +27,10 @@
     }
 }
 
-textarea { resize: none; }
+textarea {
+    resize: none;
+    min-height: 7.5rem;
+}
 
 pre { overflow-x: auto; }
 
