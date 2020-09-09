@@ -63,6 +63,24 @@
   <div class="ma2 mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p flex flex-column" id="content">
     {% block content %}{% endblock %}
   </div>
+  {# Via https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views #}
+  {% block pagination %}
+  {% if is_paginated %}
+  <div class="pagination tc pa3 f4 bg-lightest-blue bt">
+    <span class="page-links">
+      {% if page_obj.has_previous %}
+      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
+      {% endif %}
+      <span class="page-current">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+      {% if page_obj.has_next %}
+      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+      {% endif %}
+    </span>
+  </div>
+  {% endif %}
+  {% endblock %}
   <div id="footer" class="pa1 bg-moon-gray black bt bg-white-p bw1-p">
     <div class="flex ph2">
       <div class="dn w-50-p db-p">

@@ -66,14 +66,6 @@ def index(request):
         'top': Paste.objects.filter(hits__gt=0).order_by('-hits')[:5],
     })
 
-
-@require_GET
-def all_pastes(request):
-    return render(request, 'all_pastes.html', {
-        'pastes': Paste.objects.order_by('-timestamp'),
-    })
-
-
 @require_GET
 def show_paste(request, paste_id):
     p = get_object_or_404(Paste, pk=paste_id)
@@ -130,13 +122,14 @@ def make_paste(request):
 
 class ListPastes(generic.ListView):
     model = Paste
+    context_object_name = 'pastes'
+    paginate_by = 30
     template_name = 'paste_list.html'
 
 
 class ListMyPastes(LoginRequiredMixin, ListPastes):
     def get_queryset(self):
         return Paste.objects.filter(author=self.request.user)
-
 
 
 @require_GET

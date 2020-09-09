@@ -1,27 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Pastes{% endblock %}
+{% block title %}All Pastes{% endblock %}
 {% block content %}
-{% if object_list %}
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Timestamp</th>
-    <th>Expires</th>
-    <th>Size</th>
-    <th>Hits</th>
-  </tr>
-  {% for p in object_list %}
-  <tr>
-    <td><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
-    <td>{{ p.title }}</td>
-    <td>{{ p.timestamp }}</td>
-    <td>{{ p.expiry|default:"Never" }}</td>
-    <td>{{ p.size|filesizeformat }}</td>
-    <td>{{ p.hits }}</td>
-  </tr>
-  {% endfor %}
-</table>
+{% if pastes %}
+<!-- http://tachyons.io/components/tables/striped-dark/index.html -->
+<div class='ma3'>
+  <div class='overflow-auto'>
+    <table class="f6 w-100 mw8 center" cellspacing="0">
+      <thead>
+        <tr class='stripe-dark'>
+          <th class="fw6 tl pa3 bg-white">ID</th>
+          <th class="fw6 tl pa3 bg-white">Title</th>
+          <th class="fw6 tl pa3 bg-white">Timestamp</th>
+          <th class="fw6 tl pa3 bg-white">Expires</th>
+          <th class="fw6 tl pa3 bg-white">Size</th>
+          <th class="fw6 tl pa3 bg-white">Hits</th>
+        </tr>
+      </thead>
+      <tbody class='lh-copy'>
+        {% for p in pastes %}
+        <tr class='stripe-dark'>
+          <td class='pa3'><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
+          <td class='pa3'>{{ p.title }}</td>
+          <td class='pa3'>{{ p.timestamp }}</td>
+          <td class='pa3'>{{ p.expiry|default:"Never" }}</td>
+          <td class='pa3'>{{ p.size|filesizeformat }}</td>
+          <td class='pa3'>{{ p.hits }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% else %}
 <p>No pastes.</p>
 {% endif %}

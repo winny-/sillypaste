@@ -36,6 +36,10 @@ pre { overflow-x: auto; }
 
 .word-wrap { white-space: pre-wrap; }
 
+.stripe-dark:nth-child(odd) {
+    background-color: rgba(0, 0, 0, .1);
+}
+
 /* Force word wrapping on print */
 @media print {
     pre {
