@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load localtime %}
 {% block title %}All Pastes{% endblock %}
 {% block content %}
 {% if pastes %}
@@ -21,8 +22,8 @@
         <tr class='stripe-dark'>
           <td class='pa3'><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
           <td class='pa3'>{{ p.title }}</td>
-          <td class='pa3'>{{ p.timestamp }}</td>
-          <td class='pa3'>{{ p.expiry|default:"Never" }}</td>
+          <td class='pa3'>{% localtime p.timestamp %}</td>
+          <td class='pa3'>{% if p.expiry %}{% localtime p.expiry %}{% else %}Never{% endif %}</td>
           <td class='pa3'>{{ p.size|filesizeformat }}</td>
           <td class='pa3'>{{ p.hits }}</td>
         </tr>

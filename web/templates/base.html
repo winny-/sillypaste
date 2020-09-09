@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load localtime %}
 <head>
   <title>{% block title %}{% endblock %} — Silly Paste</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +8,7 @@
         href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css">
   <link rel="stylesheet" href="{% static 'sillypaste/tachyons-print.css' %}">
   <link rel="stylesheet" href="{% static 'sillypaste/style.css' %}">
+  <script type="text/javascript" src="{% static 'sillypaste/main.js' %}"></script>
   {% block head %}{% endblock %}
 </head>
 <body class="flex flex-column bg-near-white black bg-white-p">
@@ -101,7 +103,7 @@
       </div>
       <div class='w-third tr pl2 flex flex-column w-50-p'>
         <div>
-          {% now 'DATETIME_FORMAT' %}
+          {% localtime %}
         </div>
         <div>
           <a href="{% url 'show_site_stats' %}">Statistics</a>

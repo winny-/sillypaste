@@ -21,7 +21,7 @@
       <label for="expiry_preset_{{ preset.0 }}">{{ preset.1 }}</label>
     </div>
     {% endfor %}
-    <div class="mh1">
+    <div class="mh1" title="FIXME: Custom time input does not work on Firefox and is in server time.  Hover over the time on the page footer for server time.">
       <input id="expiry_preset_custom"
              type="radio"
              name="{{ form.expiry_preset.html_name }}"
@@ -31,7 +31,7 @@
     </div>
   </div>
 </div>
-<div>
+<div class='ma1'>
   {{ form.language.label_tag }}
   {{ form.language }}
 </div>

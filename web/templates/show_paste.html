@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load localtime %}
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
@@ -43,11 +44,11 @@
   </div>
   <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Created</div>
-    <div class="h-80">{{ paste.timestamp }}</div>
+    <div class="h-80">{% localtime paste.timestamp %}</div>
   </div>
   <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Expires</div>
-    <div class="h-80">{{ paste.expiry|default:"Never" }}</div>
+    <div class="h-80">{% if paste.expiry %}{% localtime paste.expiry %}{% else %}Never{% endif %}</div>
   </div>
   <div class="flex flex-column ma3"
        title="The title length plus the body length.  (Both as utf-8 bytes.)">
