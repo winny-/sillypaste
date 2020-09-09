@@ -129,7 +129,7 @@ class ListPastes(generic.ListView):
 
 class ListMyPastes(LoginRequiredMixin, ListPastes):
     def get_queryset(self):
-        return Paste.objects.filter(author=self.request.user)
+        return Paste.objects.filter(author=self.request.user).order_by('pk')
 
 
 @require_GET
