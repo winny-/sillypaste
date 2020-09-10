@@ -47,7 +47,20 @@ pre { overflow-x: auto; }
     }
 }
 
+.paste-card {
+    height:200px;
+    width:200px;
+}
+
+.paste-card:hover {
+    background: #cdecff;
+}
+
+.paste-card:hover h2 {
+    color:  #96ccff;
+}
+
 /* Extracted from tachyons for default link style */
-a { opacity: 1; transition: opacity .15s ease-in; }
-a:hover, a:focus { opacity: .5; transition: opacity .15s ease-in; }
-a:active { opacity: .8; transition: opacity .15s ease-out; }
+a:not(.custom-link) { opacity: 1; transition: opacity .15s ease-in; }
+a:hover:not(.custom-link), a:focus:not(.custom-link) { opacity: .5; transition: opacity .15s ease-in; }
+a:active:not(.custom-link) { opacity: .8; transition: opacity .15s ease-out; }

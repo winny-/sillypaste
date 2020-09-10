@@ -1,25 +1,42 @@
 {% extends "base.html" %}
+{% load localtime %}
 
 {% block title %}Home 🏘{% endblock %}
 
 {% block content %}
 
 {% if top %}
-<h4>Top Pastes</h4>
-<ul>
+<h1>Top Pastes</h1>
+<div class="flex flex-wrap">
   {% for p in top %}
-  <li>{{p.hits}} hit{{ p.hits|pluralize }}&nbsp;&mdash;&nbsp;<a href="{% url "show_paste" p.id %}">{{ p.title }}</a></li>
+  <a class='grow custom-link no-underline' href="{% url 'show_paste' p.pk %}">
+    <article class="w5 hidden ba ma1 ma2-ns shadow-1 paste-card">
+      <h2 class="f4 bg-near-black white mv0 pv2 ph3" title="{{p.title}}">{{ p.title|truncatechars:15 }}</h2>
+      <h2 class="f5 bg-near-black gray mv0 pv2 ph3">{{p.hits}} hit{{ p.hits|pluralize }}</h2>
+      <div class="pa1 bt">
+        <pre class="ma0">{{p.body|truncatechars:50}}</pre>
+      </div>
+    </article>
+  </a>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 
 {% if recent %}
-<h4>Recent Pastes</h4>
-<ul>
+<h1>Recent Pastes</h1>
+<div class="flex flex-wrap">
   {% for p in recent %}
-  <li>{{p.timestamp}}&nbsp;&mdash;&nbsp;<a href="{% url "show_paste" p.id %}">{{ p.title }}</a></li>
+  <a class='grow custom-link no-underline' href="{% url 'show_paste' p.pk %}">
+    <article class="w5 hidden ba ma1 ma2-ns shadow-1 paste-card">
+      <h2 class="f4 bg-near-black white mv0 pv2 ph3" title="{{p.title}}">{{ p.title|truncatechars:15 }}</h2>
+      <h2 class="f5 bg-near-black gray mv0 pv2 ph3">{% localtime p.timestamp %}</h2>
+      <div class="pa1 bt">
+        <pre class="ma0">{{p.body|truncatechars:50}}</pre>
+      </div>
+    </article>
+  </a>
   {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>No pastes found.</p>
 {% endif %}
