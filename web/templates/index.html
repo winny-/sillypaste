@@ -14,7 +14,7 @@
       <h2 class="f4 bg-near-black white mv0 pv1 pv2-ns ph1 ph2-ns" title="{{p.title}}">{{ p.title|truncatechars:15 }}</h2>
       <h2 class="tr f6 f5-ns bg-near-black gray mv0 pb1 pb2-ns ph1 ph2-ns">{{p.hits}} hit{{ p.hits|pluralize }}</h2>
       <div class="pa1 bt">
-        <pre class="black ma0">{{p.body|truncatechars:100}}</pre>
+        <pre class="black ma0 overflow-hidden">{{p.body|truncatechars:100}}</pre>
       </div>
     </article>
   </a>
@@ -31,7 +31,7 @@
       <h2 class="f4 bg-near-black white mv0 pv1 pv2-ns ph1 ph2-ns" title="{{p.title}}">{{ p.title|truncatechars:15 }}</h2>
       <h2 class="tr f6 f5-ns bg-near-black gray mv0 pb1 pb2-ns ph1 ph2-ns">{% localtime p.timestamp %}</h2>
       <div class="pa1 bt">
-        <pre class="black ma0">{{p.body|truncatechars:100}}</pre>
+        <pre class="black ma0 overflow-hidden">{{p.body|truncatechars:100}}</pre>
       </div>
     </article>
   </a>
