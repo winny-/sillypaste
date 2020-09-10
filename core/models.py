@@ -14,6 +14,7 @@ class Paste(models.Model):
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(null=True, blank=True)
+    freeze_hits = models.BooleanField(default=False, blank=True)
     hits = models.PositiveIntegerField(default=0)
     size = models.PositiveIntegerField(default=0, editable=False)
     author = models.ForeignKey(
@@ -38,8 +39,9 @@ class Paste(models.Model):
         return super().save(*args, **kwargs)
 
     def view(self):
-        self.hits += 1
-        self.save()
+        if not self.freeze_hits:
+            self.hits += 1
+            self.save()
         return self
 
     def get_absolute_url(self):

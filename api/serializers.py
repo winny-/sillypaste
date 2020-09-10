@@ -13,8 +13,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class PasteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Paste
-        fields = ['id', 'title', 'body', 'timestamp', 'expiry', 'hits', 'size', 'author', 'language']
-        read_only_fields = ['id', 'hits']
+        fields = ['id', 'title', 'body', 'timestamp', 'expiry', 'freeze_hits', 'hits', 'size', 'author', 'language']
+        read_only_fields = ['id', 'freeze_hits', 'hits']
 
     def validate_expiry(self, value):
         validate_future_datetime(value)
