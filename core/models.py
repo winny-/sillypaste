@@ -15,7 +15,7 @@ class Paste(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(null=True, blank=True)
     hits = models.PositiveIntegerField(default=0)
-    size = models.PositiveIntegerField(default=0)
+    size = models.PositiveIntegerField(default=0, editable=False)
     author = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
