@@ -16,6 +16,7 @@ from pygments import lexers, highlight
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 from pygments.formatters import HtmlFormatter
+from django.contrib.auth.models import User
 
 from web.forms import PasteForm
 from core.models import Paste, ExpiryLog
@@ -127,9 +128,22 @@ class ListPastes(generic.ListView):
     template_name = 'paste_list.html'
 
 
-class ListMyPastes(LoginRequiredMixin, ListPastes):
+class Profile(ListPastes):
+    template_name = 'profile.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.user
+        return context
     def get_queryset(self):
-        return Paste.objects.filter(author=self.request.user).order_by('pk')
+        self.user = get_object_or_404(User, username=self.kwargs['username'])
+        return Paste.objects.filter(author__username=self.user)
+
+
+class ListMyPastes(LoginRequiredMixin, generic.RedirectView):
+    pattern_name = 'profile'
+    def get_redirect_url(self, *args, **kwargs):
+        kwargs['username'] = self.request.user.username
+        return super().get_redirect_url(*args, **kwargs)
 
 
 @require_GET

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{% if request.user == user %}My profile{% else %}{{user.username}}{% endif %}{% endblock %}
+{% block content %}
+<h1>{{user.username}}</h1>
+{% if request.user == user %}
+<ul>
+  <li><a class="link blue tr" href="{% url 'password_change' %}">Change Password</a></li>
+</ul>
+{% endif %}
+<h2>{% if request.user == user %}My {% endif %}Pastes</h2>
+{% include "paste_list_snippet.html" %}
+{% endblock %}

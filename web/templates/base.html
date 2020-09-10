@@ -38,13 +38,7 @@
 
         {% if request.user.is_authenticated %}
         <div class="ma2 tr">
-          <a class="link blue tr" href="{% url 'my_pastes' %}">My Pastes</a>
-        </div>
-        {% endif %}
-
-        {% if request.user.is_authenticated %}
-        <div class="ma2 tr">
-          <a class="link blue tr" href="{% url 'password_change' %}">Change Password</a>
+          <a class="link blue tr" href="{% url 'profile' request.user.username %}">Profile</a>
         </div>
         {% endif %}
 
@@ -106,7 +100,10 @@
         <div>
           {% localtime %}
         </div>
-        <div>
+        <div class='dn-p'>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'api-root' %}">API Explorer</a>
+          {% endif %}
           <a href="{% url 'show_site_stats' %}">Statistics</a>
           <a href="{% url 'admin:index' %}">Admin</a>
         </div>

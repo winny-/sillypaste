@@ -40,7 +40,15 @@
 <div class="flex flex-wrap justify-around">
   <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Author</div>
-    <div class="h-80">{{ paste.author.username|default:'Anonymous' }}</div>
+    <div class="h-80">
+      {% if paste.author %}
+      <a class="link blue" href="{% url 'profile' paste.author.username %}">
+        {{paste.author.username}}
+      </a>
+      {% else %}
+      Anonymous
+      {% endif %}
+    </div>
   </div>
   <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Created</div>
