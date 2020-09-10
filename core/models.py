@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import validate_comma_separated_integer_list
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from collections import namedtuple
 
 
 __all__ = ['Paste', 'ExpiryLog']
@@ -46,6 +47,12 @@ class Paste(models.Model):
 
     def get_absolute_url(self):
         return reverse('show_paste', kwargs={'paste_id': self.pk})
+
+    BODY_SQUARE_DIMENSIONS = namedtuple('dimensions', ['columns','rows'])(30,9)  # cols, rows
+    def body_square(self):
+        lines = self.body.split('\n')[:self.BODY_SQUARE_DIMENSIONS.rows]
+        return '\n'.join(line[:self.BODY_SQUARE_DIMENSIONS.columns]
+                         for line in lines)
 
 
 class Language(models.Model):
