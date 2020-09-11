@@ -20,10 +20,15 @@
 {% endblock %}
 {% block content %}
 {% if owner %}
-<div class="flex justify-center bg-light-blue black ba dn-p mb1">
-  <span class="ma1">You own this paste.  Would you like to&hellip;</span>
-  <a class="ma1" href="{% url 'delete_paste' paste.id  %}">Delete this paste</a>
-  <a class="ma1" href="{% url 'edit_paste' paste.id  %}">Edit this paste</a>
+<div class="flex flex-row flex-wrap justify-around bg-light-blue black bb ba-ns dn-p mb1">
+  <div class="ma1 ma2-ns flex flex-column justify-center">
+    You own this paste.  Would you like to&hellip;
+  </div>
+  <div class="flex flex-row flex-wrap justify-center">
+    <a class="ma1 br2 ma2-ns link white bg-dark-red f6 dim pa2 mv2 dib" href="{% url 'delete_paste' paste.id  %}">Delete this paste</a>
+    <a class="ma1 br2 ma2-ns link white bg-dark-gray f6 dim pa2 mv2 dib" href="{% url 'edit_paste' paste.id  %}">Edit this paste</a>
+  </div>
+
 </div>
 {% endif %}
 <div class="flex">
