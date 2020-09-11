@@ -47,6 +47,11 @@ pre { overflow-x: auto; }
     }
 }
 
+#error-message dt:after { content: " — "; }
+.errorlist { list-style-type: none; display: inline; padding: 0; }
+.errorlist li { display: inline; }
+.errorlist li:not(:last-child) { margin-right: .5em; }
+
 .paste-card {
     height:150px;
     width:150px;

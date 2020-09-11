@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Log in{% endblock %}
 {% block content %}
-<div>
-  Need an account? <a href='{% url "register" %}'>Register here.</a>
+<div class='mv3 f4'>
+  Need an account? <a href='{% url "register" %}'>Register here</a>.
 </div>
-<form method='POST'>
+<form class="flex flex-row flex-wrap" method='POST'>
   {% csrf_token %}
-  {{form}}
-  <input type='submit' value='Log in'>
+  <div class='ma1'>
+    {{form.username.label_tag}}
+    {{form.username}}
+  </div>
+  <div class='ma1'>
+    {{form.password.label_tag}}
+    {{form.password}}
+  </div>
+  <input class='ma1' type='submit' value='Log in'>
 </form>
 
 {% endblock %}

@@ -14,7 +14,7 @@
 </head>
 <body class="flex flex-column bg-near-white black bg-white-p">
   <div>
-    <nav id="navbar" class="flex justify-between bg-lightsalmon dn-p bb">
+    <nav id="navbar" class="flex justify-between dn-p bb" style="background: rgb(255,160,122); background: linear-gradient(0deg, rgba(255,160,122,1) 0%, rgba(255,196,173,1) 100%);">
       <!-- Left -->
       <div class="flex flex-wrap">
         <div class="ma2 tl">
@@ -52,11 +52,27 @@
       </div>
     </nav>
   </div>
-  {% if error_message %}
+  {% block errors %}
+  {% if form.errors %}
   <div id="error-message" class="tc bg-light-red bg-white-p black pa2 bb">
-    Error: {{ error_message }}
+    {% if form.non_field_errors %}
+    <div class="ma1">
+      {{form.non_field_errors}}
+    </div>
+    {% endif %}
+    <dl class='di'>
+      {% for f in form %}
+
+      {% if f.errors %}
+      <dt class="b di">{{f.name}}</dt>
+      <dd class='di ma0 mr1'>{{f.errors}}</dd>
+      {% endif %}
+      {% endfor %}
+    </dl>
+
   </div>
   {% endif %}
+  {% endblock %}
   <div class="ma2-ns mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p flex flex-column" id="content">
     {% block content %}{% endblock %}
   </div>
