@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Make a new paste{% endblock %}
 {% block content %}
-
 <form action="{% url "make_paste" %}" method="post" class="flex flex-column h-100 flex-grow-1">
   {% csrf_token %}
   {% include "paste_form_snippet.html" %}

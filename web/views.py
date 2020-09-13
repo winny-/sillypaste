@@ -115,9 +115,6 @@ def make_paste(request):
 
     return render(request, 'make_paste.html', {
         'form': form,
-        'error_message': '; '.join(f"{what}: {','.join(messages)}"
-                                   for (what, messages)
-                                   in form.errors.items()),
     })
 
 

@@ -4,19 +4,6 @@
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
-<script>
- /* If anybody can get https://codepen.io/winny-/pen/BaKJYqd working I can
- delete this javascript! */
- (function(){
-   window.addEventListener('load', () => {
-     const p = document.querySelector('#body-container pre');
-     document.getElementById('toggle-wrap').addEventListener('click', ({ target }) => {
-       if (target.checked) p.classList.add('word-wrap');
-       else p.classList.remove('word-wrap');
-     });
-   });
- })();
-</script>
 {% endblock %}
 {% block content %}
 {% if owner %}
