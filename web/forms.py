@@ -36,6 +36,11 @@ class PasteForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['language'].queryset = Language.objects.order_by(Lower('name'))
 
+    def clean_body(self, *args, **kwargs):
+        """Convert CRLF to LF in the body."""
+        body = self.cleaned_data['body']
+        return body.replace('\r', '')
+
     def clean(self, *args, **kwargs):
         ep = self.cleaned_data['expiry_preset']
         if ep  == '1day':
