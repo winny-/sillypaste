@@ -5,7 +5,7 @@ from django.urls import reverse
 from collections import namedtuple
 
 
-__all__ = ['Paste', 'ExpiryLog']
+__all__ = ['Paste', 'Language', 'ExpiryLog']
 
 
 class Paste(models.Model):
