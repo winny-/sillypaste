@@ -14,39 +14,41 @@
 </head>
 <body class="flex flex-column bg-near-white black bg-white-p">
   <div>
-    <nav id="navbar" class="flex flex-column flex-row-ns justify-center justify-between-ns dn-p bb" style="background: rgb(255,160,122); background: linear-gradient(0deg, rgba(255,160,122,1) 0%, rgba(255,196,173,1) 100%);">
+    <nav id="navbar" class="flex flex-column flex-row-ns justify-center justify-between-ns dn-p bb pa2" style="background: rgb(255,160,122); background: linear-gradient(0deg, rgba(255,160,122,1) 0%, rgba(255,196,173,1) 100%);">
       <!-- Left -->
-      <div class="flex flex-wrap order-0-ns order-1 w-40-ns justify-center justify-start-ns">
-        <div class="ma2 tl">
-          <a class="link blue" href="{% url 'index' %}">Home</a>
+      <div class="f4 flex flex-wrap order-0-ns order-1 w-40-ns justify-center justify-start-ns">
+        <div class="ma2 tl flex flex-column justify-center">
+          <a class="link dark-blue" href="{% url 'index' %}">Home</a>
         </div>
-        <div class="ma2 tl">
-          <a class="link blue" href="{% url 'make_paste' %}">Make a paste</a>
+        <div class="ma2 tl flex flex-column justify-center">
+          <a class="link dark-blue" href="{% url 'make_paste' %}">Make a paste</a>
         </div>
       </div>
       <!-- Center -->
-      <div class="w-10-ns order-2 order-1-ns flex justify-center">
+      <div class="w-20-ns order-2 order-1-ns flex justify-center">
         {% if request.user.is_authenticated %}
-        <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
+        <div class="flex flex-column justify-center">
+          <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
+        </div>
         {% endif %}
       </div>
       <!-- Right -->
-      <div class="flex flex-wrap justify-center justify-end-ns w-40-ns order-2-ns order-1">
-        <div class="ma2 tr">
-          <a class="link blue tr" href="{% url 'all_pastes' %}">All pastes</a>
+      <div class="f4 flex flex-wrap justify-center justify-end-ns w-40-ns order-2-ns order-1">
+        <div class="ma2 tr flex flex-column justify-center">
+          <a class="link dark-blue tr" href="{% url 'all_pastes' %}">All pastes</a>
         </div>
 
         {% if request.user.is_authenticated %}
-        <div class="ma2 tr">
-          <a class="link blue tr" href="{% url 'profile' request.user.username %}">Profile</a>
+        <div class="ma2 tr flex flex-column justify-center">
+          <a class="link dark-blue tr" href="{% url 'profile' request.user.username %}">Profile</a>
         </div>
         {% endif %}
 
-        <div class="ma2 tr">
+        <div class="ma2 tr flex flex-column justify-center">
           {% if request.user.is_authenticated %}
-          <a class="link blue tr" href="{% url 'logout' %}">Log out</a>
+          <a class="link dark-blue tr" href="{% url 'logout' %}">Log out</a>
           {% else %}
-          <a class="link blue tr" href="{% url 'login' %}">Log in</a>
+          <a class="link dark-blue tr" href="{% url 'login' %}">Log in</a>
           {% endif %}
         </div>
       </div>
@@ -94,7 +96,7 @@
   </div>
   {% endif %}
   {% endblock %}
-  <div id="footer" class="pa1 bg-moon-gray black bt bg-white-p bw1-p">
+  <div id="footer" class="pa2 bg-moon-gray black bt bg-white-p bw1-p lh-copy">
     <div class="flex ph2">
       <div class="dn w-50-p db-p">
         Silly Paste
@@ -117,11 +119,20 @@
           {% localtime %}
         </div>
         <div class='dn-p'>
-          {% if request.user.is_authenticated %}
-          <a href="{% url 'api-root' %}">API Explorer</a>
-          {% endif %}
-          <a href="{% url 'show_site_stats' %}">Statistics</a>
-          <a href="{% url 'admin:index' %}">Admin</a>
+          <ul class='di'>
+            <li class='di pa1'>
+              {% if request.user.is_authenticated %}
+              <a href="{% url 'api-root' %}">API Explorer</a>
+              {% endif %}
+            </li>
+            <li class='di pa1'>
+              <a href="{% url 'show_site_stats' %}">Statistics</a>
+            </li>
+            <li class='di pa1'>
+              <a href="{% url 'admin:index' %}">Admin</a>
+            </li>
+          </ul>
+
         </div>
       </div>
     </div>
