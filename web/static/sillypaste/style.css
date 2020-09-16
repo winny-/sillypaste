@@ -33,6 +33,7 @@ textarea {
 }
 
 pre { overflow-x: auto; }
+.highlight pre { padding: .5em; margin: 0; }
 
 .word-wrap { white-space: pre-wrap; }
 
