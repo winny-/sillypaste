@@ -1,6 +1,14 @@
 {% extends "base.html" %}
+{% load lazysignup_tags %}
 {% block title %}Register new account{% endblock %}
 {% block content %}
+{% if user|is_lazy_user %}
+<div class='mv1'>
+  Note: You are presently signed as an anonymous user.  When you register with
+  a username and password, your account will take ownership of your anonymous
+  user's posts.
+</div>
+{% endif %}
 <form method='POST'>
   {% csrf_token %}
   <div class='ma1'>

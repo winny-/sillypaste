@@ -6,7 +6,7 @@ from django.utils import timezone
 from django.core.exceptions import ObjectDoesNotExist
 from datetime import timedelta
 from django.db.models import Sum, Count
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -17,9 +17,20 @@ from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 from pygments.formatters import HtmlFormatter
 from django.contrib.auth.models import User
+from .lazysignup_decorators import allow_lazy_user
+from .lazysignup_convert import convert
+from lazysignup.utils import is_lazy_user
+from django.http import Http404
+
 
 from web.forms import PasteForm
 from core.models import Paste, ExpiryLog
+
+
+class LoginView(auth_views.LoginView):
+    def form_valid(self, form):
+        convert(self.request.user, form.get_user())
+        return super().form_valid(form)
 
 
 class Register(generic.CreateView):
@@ -34,6 +45,7 @@ class Register(generic.CreateView):
             username=form.cleaned_data['username'],
             password=form.cleaned_data['password1'],
         )
+        convert(self.request.user, new_user)
         login(self.request, new_user)
         return response
 
@@ -97,6 +109,7 @@ def show_raw(request, paste_id):
     return HttpResponse(p.body, content_type='text/plain; charset=utf-8')
 
 
+@allow_lazy_user
 @require_http_methods(['GET', 'POST'])
 def make_paste(request):
     if request.method == 'POST':
@@ -129,6 +142,11 @@ class Profile(ListPastes):
     template_name = 'profile.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Only allow others to view profiles of "registered" of regular users,
+        # but allow automatically created (session) users to view their own
+        # profile.
+        if is_lazy_user(self.user) and self.user != self.request.user:
+            raise Http404()
         context['user'] = self.user
         return context
     def get_queryset(self):

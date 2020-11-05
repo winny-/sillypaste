@@ -1,9 +1,17 @@
 {% extends "base.html" %}
+{% load lazysignup_tags %}
 {% block title %}Log in{% endblock %}
 {% block content %}
 <div class='mv3 f4'>
   Need an account? <a href='{% url "register" %}'>Register here</a>.
 </div>
+{% if user|is_lazy_user %}
+<div class='mv1'>
+  Note: You are presently signed as an anonymous user.  When you log in with
+  a username and password, your account will take ownership of your anonymous
+  user's posts.
+</div>
+{% endif %}
 <form class="flex flex-column" method='POST'>
   {% csrf_token %}
   <div class="flex flex-row flex-wrap justify-center">

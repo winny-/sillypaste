@@ -21,9 +21,15 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # User views mostly extracted from django.contrib.auth.urls.
+    path('accounts/password_change/', auth_views.PasswordChangeView.as_view(), name='password_change'),
+    path('accounts/password_change/done/', auth_views.PasswordChangeDoneView.as_view(), name='password_change_done'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('accounts/register/', views.Register.as_view(), name='register'),
+    path('accounts/login/', views.LoginView.as_view(), name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
+
     path('', views.index, name='index'),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register', views.Register.as_view(), name='register'),
     path('paste', views.make_paste, name='make_paste'),
     path('<int:paste_id>', views.show_paste, name='show_paste'),
     path('<int:pk>/delete', views.PasteDelete.as_view(), name='delete_paste'),

@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load static %}
-{% load localtime %}
+{% load static localtime lazysignup_tags %}
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
@@ -33,7 +32,7 @@
   <div class="flex flex-column ma3">
     <div class="h-20 f4 b">Author</div>
     <div class="h-80">
-      {% if paste.author %}
+      {% if paste.author and not paste.author|is_lazy_user %}
       <a class="link blue" href="{% url 'profile' paste.author.username %}">
         {{paste.author.username}}
       </a>

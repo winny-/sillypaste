@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
-{% load localtime %}
+{% load static localtime lazysignup_tags %}
 <head>
   <title>{% block title %}{% endblock %} — Silly Paste</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,7 +25,7 @@
       </div>
       <!-- Center -->
       <div class="w-20-ns order-2 order-1-ns flex justify-center">
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_authenticated and not user|is_lazy_user %}
         <div class="flex flex-column justify-center">
           <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
         </div>
@@ -45,7 +44,7 @@
         {% endif %}
 
         <div class="ma2 tr flex flex-column justify-center">
-          {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated and not user|is_lazy_user %}
           <a class="link dark-blue tr" href="{% url 'logout' %}">Log out</a>
           {% else %}
           <a class="link dark-blue tr" href="{% url 'login' %}">Log in</a>
