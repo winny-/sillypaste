@@ -2,9 +2,8 @@ from django.utils import timezone
 from datetime import timedelta, datetime
 from django import forms
 from django.core.exceptions import ValidationError
-from core.models import Paste, Language
+from core.models import Paste
 from core.validators import validate_future_datetime
-from django.db.models.functions import Lower
 import pytz
 
 
@@ -34,7 +33,6 @@ class PasteForm(forms.ModelForm):
                 'expiry_preset': 'custom' if instance.expiry else 'never',
             })
         super().__init__(*args, **kwargs)
-        self.fields['language'].queryset = Language.objects.order_by(Lower('name'))
 
     def clean_body(self, *args, **kwargs):
         """Convert CRLF to LF in the body."""

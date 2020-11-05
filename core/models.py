@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.functions import Lower
 from django.core.validators import validate_comma_separated_integer_list
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -9,8 +10,10 @@ __all__ = ['Paste', 'Language', 'ExpiryLog']
 
 
 class Paste(models.Model):
+
     class Meta:
         ordering = ('pk', )
+
     title = models.CharField(max_length=100)
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -56,6 +59,10 @@ class Paste(models.Model):
 
 
 class Language(models.Model):
+
+    class Meta:
+        ordering = (Lower('name'), )
+
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -63,6 +70,7 @@ class Language(models.Model):
 
 
 class ExpiryLog(models.Model):
+
     expired_ids = models.CharField(blank=True,
                                    max_length=int(pow(2, 20)),
                                    validators=[validate_comma_separated_integer_list])
