@@ -64,10 +64,15 @@ class TestPaste(TestCase):
         """Test size set based on title + body size"""
         T, B = 20, 15
         p = Paste.objects.create(title='t' * T, body='b' * B)
-        self. assertEqual(p.size, T+B)
+        self.assertEqual(p.size, T+B)
 
         T2, B2 = 10, 7
         p.title = 'T' * T2
         p.body = 'B' * B2
         p.save()
-        self. assertEqual(p.size, T2+B2)
+        self.assertEqual(p.size, T2+B2)
+
+    def test_leave_nls_alone(self):
+        """Just a sanity check due to weird behavior in web.forms.PasteForm."""
+        p = Paste.objects.create(title='t', body='b\n')
+        self.assertEqual(p.body, 'b\n')
