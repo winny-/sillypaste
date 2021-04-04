@@ -1,5 +1,7 @@
 # Silly Paste
 
+[![Build](https://github.com/winny-/sillypaste/actions/workflows/build.yml/badge.svg)](https://github.com/winny-/sillypaste/actions/workflows/build.yml)
+
 Yet another Django pastebin.  Written for a lab and later improved for casual
 use.
 

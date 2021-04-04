@@ -1,0 +1,33 @@
+name: 'Build'
+on: push
+jobs:
+  test_core:
+    name: 'Run unit tests on core'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v2
+      - name: Django Coverage action
+        uses: dc740/django-coveragepy-github-action@0.9
+        with:
+          django-app: 'core'
+  test_api:
+    name: 'Run unit tests on api'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v2
+      - name: Django Coverage action
+        uses: dc740/django-coveragepy-github-action@0.9
+        with:
+          django-app: 'api'
+  test_web:
+    name: 'Run unit tests on web'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout action
+        uses: actions/checkout@v2
+      - name: Django Coverage action
+        uses: dc740/django-coveragepy-github-action@0.9
+        with:
+          django-app: 'web'
