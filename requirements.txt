@@ -1,7 +1,7 @@
 asgiref==3.3.1
 coverage==5.5
 dj-database-url==0.5.0
-Django==3.1.7
+Django==3.1.8
 django-filter==2.4.0
 django-heroku==0.3.1
 django-lazysignup==2.0.0
