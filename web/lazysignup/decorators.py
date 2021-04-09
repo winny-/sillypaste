@@ -1,7 +1,7 @@
 """Import in this module from lazysignup until
 https://github.com/danfairs/django-lazysignup/issues/66 gets merged in.
-
 """
+
 
 from functools import wraps
 
@@ -15,6 +15,10 @@ from functools import WRAPPER_ASSIGNMENTS
 
 from lazysignup.constants import USER_AGENT_BLACKLIST
 from lazysignup.utils import is_lazy_user
+
+
+__all__ = ['allow_lazy_user', 'require_lazy_user', 'require_nonlazy_user']
+
 
 ALLOW_LAZY_REGISTRY = {}
 
