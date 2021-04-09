@@ -16,6 +16,7 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
+from core.permissions import user_can_edit_paste, admin_using_powers
 from core.models import Paste
 from web.lazysignup import allow_lazy_user
 from web.forms import PasteForm
@@ -28,7 +29,7 @@ class AuthorAccessingPasteViewMixin:
     """Prevent non-owners or non-admins from modifying pastes that are not theirs."""
     def get_object(self, queryset=None):
         obj = super().get_object()
-        if not obj.author == self.request.user:
+        if not user_can_edit_paste(self.request.user, obj):
             raise PermissionDenied()
         return obj
 
@@ -67,7 +68,8 @@ def show_paste(request, paste_id):
     return render(request, 'show_paste.html', {
         'paste': p.view(),
         'paste_body_html': body_html,
-        'owner': p.author is not None and p.author == request.user,
+        'can_edit': user_can_edit_paste(request.user, p),
+        'is_admin': admin_using_powers(request.user, p),
     })
 
 

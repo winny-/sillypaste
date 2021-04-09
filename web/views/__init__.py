@@ -4,5 +4,5 @@ Views package.
 
 
 from .other import *
-from .paste import *
-from .user import *
+from .pastes import *
+from .users import *
