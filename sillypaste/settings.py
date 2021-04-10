@@ -153,6 +153,8 @@ STATICFILES_STORAGE='django.contrib.staticfiles.storage.ManifestStaticFilesStora
 if 'DYNO' in os.environ:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
+    INSTALLED_APPS.remove('livereload')
+    MIDDLEWARE.remove('livereload.middleware.LiveReloadScript')
 
 
 import django_heroku
