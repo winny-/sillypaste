@@ -80,18 +80,22 @@
   {# Via https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views #}
   {% block pagination %}
   {% if is_paginated %}
-  <div class="pagination tc pa3 f4 bg-lightest-blue bt">
-    <span class="page-links">
-      {% if page_obj.has_previous %}
-      <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
-      {% endif %}
-      <span class="page-current">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-      </span>
-      {% if page_obj.has_next %}
-      <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-      {% endif %}
-    </span>
+  <div class="pagination flex pa2 f4 bg-lightest-blue bt justify-center">
+    <div class="page-links flex flex-wrap justify-center justify-between-ns flex-row-ns w-50-m w-40-l">
+      <div class='w-20-ns tc tr-ns pa1'>
+        {% if page_obj.has_previous %}
+        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
+        {% endif %}
+      </div>
+      <div class="page-current w-60-ns tc pa1">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+      </div>
+      <div class="w-20-ns tc tl-ns pa1">
+        {% if page_obj.has_next %}
+        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+      </div>
+    </div>
   </div>
   {% endif %}
   {% endblock %}
@@ -100,7 +104,7 @@
       <div class="dn w-50-p db-p">
         Silly Paste
       </div>
-      <div class='w-third tl flex flex-column pr2 dn-p'>
+      <div class='w-40 tl flex flex-column pr2 dn-p'>
         <div>
           Made with some love by <a href="https://winny.tech/">winny</a>.
         </div>
@@ -108,12 +112,12 @@
           Grab the <a href="https://github.com/winny-/sillypaste">source code</a>.
         </div>
       </div>
-      <div class='w-third tc ph2 dn-p flex flex-column'>
+      <div class='w-20 tc ph2 dn-p flex flex-column'>
         <div>
           <a href="{% url 'privacy_policy' %}">Privacy policy</a>
         </div>
       </div>
-      <div class='w-third tr pl2 flex flex-column w-50-p'>
+      <div class='w-40 tr pl2 flex flex-column w-50-p'>
         <div>
           {% localtime %}
         </div>
@@ -131,7 +135,6 @@
               <a href="{% url 'admin:index' %}">Admin</a>
             </li>
           </ul>
-
         </div>
       </div>
     </div>
