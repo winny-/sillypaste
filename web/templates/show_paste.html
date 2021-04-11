@@ -62,8 +62,12 @@
     <div class="h-20 f4 b">Hits</div>
     <div class="h-80">{{ paste.hits }}</div>
   </div>
+  <div class="flex flex-column ma3">
+    <div class="h-20 f4 b">Syntax</div>
+    <div class="h-80">{% if paste.language %}{{ paste.language.name }}{% else %}None{% endif %}</div>
+  </div>
 </div>
-<div>
+<div class="no-select">
   <input type="checkbox" id="toggle-wrap" class="dn-p">
   <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
   <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>

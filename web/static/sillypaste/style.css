@@ -1,3 +1,6 @@
+/* https://stackoverflow.com/a/7018415 */
+.no-select { user-select: none; }
+
 .bg-lightsalmon { background: lightsalmon; }
 
 .w-15 { width: 15%; }
