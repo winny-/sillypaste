@@ -1,5 +1,5 @@
 {% for hidden in form.hidden_fields %}
-{{ hidden }}
+  {{ hidden }}
 {% endfor %}
 <div class="flex f3 pv1 justify-between">
   <label class="w-25" for="{{ form.title.id_for_label }}">
@@ -13,13 +13,13 @@
   </div>
   <div class="w-75 flex flex-wrap justify-around items-center">
     {% for preset in form.EXPIRY_CHOICES_NO_CUSTOM %}
-    <div class="ma1">
-      <input id="expiry_preset_{{ preset.0 }}"
-             type="radio"
-             name="{{ form.expiry_preset.html_name }}"
-             value="{{ preset.0 }}"{% if preset.0 == form.expiry_preset.value %} checked{% endif %}>
-      <label for="expiry_preset_{{ preset.0 }}">{{ preset.1 }}</label>
-    </div>
+      <div class="ma1">
+        <input id="expiry_preset_{{ preset.0 }}"
+               type="radio"
+               name="{{ form.expiry_preset.html_name }}"
+               value="{{ preset.0 }}"{% if preset.0 == form.expiry_preset.value %} checked{% endif %}>
+        <label for="expiry_preset_{{ preset.0 }}">{{ preset.1 }}</label>
+      </div>
     {% endfor %}
     <div class="ma1 flex flex-row flex-wrap" title="FIXME: Custom time input does not work on Firefox and is in server time.  Hover over the time on the page footer for server time.">
       <div class="flex flex-row items-center">

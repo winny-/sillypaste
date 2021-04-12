@@ -1,34 +1,34 @@
 {% load localtime %}
 {% if pastes %}
-<!-- http://tachyons.io/components/tables/striped-dark/index.html -->
-<div class='ma3-ns'>
-  <div class='overflow-auto'>
-    <table class="f6 w-100 mw8 center ba-ns" cellspacing="0">
-      <thead>
-        <tr class='stripe-dark'>
-          <th class="fw6 tl pa3 bg-white">ID</th>
-          <th class="fw6 tl pa3 bg-white">Title</th>
-          <th class="fw6 tl pa3 bg-white">Timestamp</th>
-          <th class="fw6 tl pa3 bg-white">Expires</th>
-          <th class="fw6 tl pa3 bg-white">Size</th>
-          <th class="fw6 tl pa3 bg-white">Hits</th>
-        </tr>
-      </thead>
-      <tbody class='lh-copy'>
-        {% for p in pastes %}
-        <tr class='stripe-dark'>
-          <td class='pa3'><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
-          <td class='pa3'>{{ p.title }}</td>
-          <td class='pa3'>{% localtime p.timestamp %}</td>
-          <td class='pa3'>{% if p.expiry %}{% localtime p.expiry %}{% else %}Never{% endif %}</td>
-          <td class='pa3'>{{ p.size|filesizeformat }}</td>
-          <td class='pa3'>{{ p.hits }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+  <!-- http://tachyons.io/components/tables/striped-dark/index.html -->
+  <div class='ma3-ns'>
+    <div class='overflow-auto'>
+      <table class="f6 w-100 mw8 center ba-ns" cellspacing="0">
+        <thead>
+          <tr class='stripe-dark'>
+            <th class="fw6 tl pa3 bg-white">ID</th>
+            <th class="fw6 tl pa3 bg-white">Title</th>
+            <th class="fw6 tl pa3 bg-white">Timestamp</th>
+            <th class="fw6 tl pa3 bg-white">Expires</th>
+            <th class="fw6 tl pa3 bg-white">Size</th>
+            <th class="fw6 tl pa3 bg-white">Hits</th>
+          </tr>
+        </thead>
+        <tbody class='lh-copy'>
+          {% for p in pastes %}
+            <tr class='stripe-dark'>
+              <td class='pa3'><a href="{% url "show_paste" p.id %}">{{ p.id }}</a></td>
+              <td class='pa3'>{{ p.title }}</td>
+              <td class='pa3'>{% localtime p.timestamp %}</td>
+              <td class='pa3'>{% if p.expiry %}{% localtime p.expiry %}{% else %}Never{% endif %}</td>
+              <td class='pa3'>{{ p.size|filesizeformat }}</td>
+              <td class='pa3'>{{ p.hits }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 {% else %}
-<p>No pastes.</p>
+  <p>No pastes.</p>
 {% endif %}

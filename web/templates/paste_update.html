@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 {% block title %}Edit paste{% endblock %}
 {% block content %}
-{{form.errors}}
-<form method="post" class="flex flex-column h-100 flex-grow-1">
-  {% csrf_token %}
-  {% include "paste_form_snippet.html" %}
-  <div class="flex flex-row">
-    <input class="w-80 h2 mv1 bg-light-blue black br2 mr1" type="submit" value="Edit paste">
-    <a class="tc ba br2 link white bg-dark-red h2 pa2 mv1 dib w-20 custom-link ml1" href="{% url 'show_paste' object.id %}" id='cancel-edit' style='line-height:.8em'>Cancel</a>
-  </div>
-</form>
+  {{form.errors}}
+  <form method="post" class="flex flex-column h-100 flex-grow-1">
+    {% csrf_token %}
+    {% include "paste_form_snippet.html" %}
+    <div class="flex flex-row">
+      <input class="w-80 h2 mv1 dim bg-light-blue black br2 b--gray mr1" type="submit" value="Edit paste">
+      <a class="tc ba br2 b--gray dim link white bg-dark-red h2 pa2 mv1 dib w-20 custom-link ml1"
+         href="{% url 'show_paste' object.id %}" id='cancel-edit' style='line-height:.8em'>Cancel</a>
+    </div>
+  </form>
 {% endblock %}

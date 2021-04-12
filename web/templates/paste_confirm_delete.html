@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% block title %}Delete this paste?{% endblock %}
 {% block errors %}
-{{form.non_field_errors}}
-{% for f in form %}
-{{f.errors}}
-{% endfor %}
+  {{form.non_field_errors}}
+  {% for f in form %}
+    {{f.errors}}
+  {% endfor %}
 {% endblock %}
 {% block content %}
-<h1>Delete paste?</h1>
-<form method='POST'>
-  {% csrf_token %}
-  {% for f in form %}
-  {{f.label_tag}}
-  {{f}}
-  {% endfor %}
-  <input class="f6 br2 link dim ph3 pv2 mb2 dib white bg-dark-red" type='submit' value='Delete'>
-</form>
+  <h1>Delete paste?</h1>
+  <form method='POST'>
+    {% csrf_token %}
+    {% for f in form %}
+      {{f.label_tag}}
+      {{f}}
+    {% endfor %}
+    <input class="f6 br2 link dim ph3 pv2 mb2 dib white bg-dark-red b--gray" type='submit' value='Delete'>
+  </form>
 
 {% endblock %}

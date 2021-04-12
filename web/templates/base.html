@@ -26,9 +26,9 @@
       <!-- Center -->
       <div class="w-20-ns order-2 order-1-ns flex justify-center">
         {% if request.user.is_authenticated and not user|is_lazy_user %}
-        <div class="flex flex-column justify-center">
-          <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
-        </div>
+          <div class="flex flex-column justify-center">
+            <div class="i ma2">Hello <span class="b">{{request.user.username}}</span></div>
+          </div>
         {% endif %}
       </div>
       <!-- Right -->
@@ -38,66 +38,66 @@
         </div>
 
         {% if request.user.is_authenticated %}
-        <div class="ma2 tr flex flex-column justify-center">
-          <a class="link dark-blue tr" href="{% url 'profile' request.user.username %}">Profile</a>
-        </div>
+          <div class="ma2 tr flex flex-column justify-center">
+            <a class="link dark-blue tr" href="{% url 'profile' request.user.username %}">Profile</a>
+          </div>
         {% endif %}
 
         <div class="ma2 tr flex flex-column justify-center">
           {% if request.user.is_authenticated and not user|is_lazy_user %}
-          <a class="link dark-blue tr" href="{% url 'logout' %}">Log out</a>
+            <a class="link dark-blue tr" href="{% url 'logout' %}">Log out</a>
           {% else %}
-          <a class="link dark-blue tr" href="{% url 'login' %}">Log in</a>
+            <a class="link dark-blue tr" href="{% url 'login' %}">Log in</a>
           {% endif %}
         </div>
       </div>
     </nav>
   </div>
   {% block errors %}
-  {% if form.errors %}
-  <div id="error-message" class="tc bg-light-red bg-white-p black pa2 bb">
-    {% if form.non_field_errors %}
-    <div class="ma1">
-      {{form.non_field_errors}}
-    </div>
+    {% if form.errors %}
+      <div id="error-message" class="tc bg-light-red bg-white-p black pa2 bb">
+        {% if form.non_field_errors %}
+          <div class="ma1">
+            {{form.non_field_errors}}
+          </div>
+        {% endif %}
+        <dl class='di'>
+          {% for f in form %}
+
+            {% if f.errors %}
+              <dt class="b di">{{f.name}}</dt>
+              <dd class='di ma0 mr1'>{{f.errors}}</dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+
+      </div>
     {% endif %}
-    <dl class='di'>
-      {% for f in form %}
-
-      {% if f.errors %}
-      <dt class="b di">{{f.name}}</dt>
-      <dd class='di ma0 mr1'>{{f.errors}}</dd>
-      {% endif %}
-      {% endfor %}
-    </dl>
-
-  </div>
-  {% endif %}
   {% endblock %}
   <div class="ma2-ns mw-100 bg-lightest-grey bg-white-p mh0-p flex-grow-1 flex-grow-0-p flex flex-column" id="content">
     {% block content %}{% endblock %}
   </div>
   {# Via https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Generic_views #}
   {% block pagination %}
-  {% if is_paginated %}
-  <div class="pagination flex pa2 f4 bg-lightest-blue bt justify-center">
-    <div class="page-links flex flex-wrap justify-center justify-between-ns flex-row-ns w-50-m w-40-l">
-      <div class='w-20-ns tc tr-ns pa1'>
-        {% if page_obj.has_previous %}
-        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
-        {% endif %}
+    {% if is_paginated %}
+      <div class="pagination flex pa2 f4 bg-lightest-blue bt justify-center">
+        <div class="page-links flex flex-wrap justify-center justify-between-ns flex-row-ns w-50-m w-40-l">
+          <div class='w-20-ns tc tr-ns pa1'>
+            {% if page_obj.has_previous %}
+              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
+            {% endif %}
+          </div>
+          <div class="page-current w-60-ns tc pa1">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+          </div>
+          <div class="w-20-ns tc tl-ns pa1">
+            {% if page_obj.has_next %}
+              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+          </div>
+        </div>
       </div>
-      <div class="page-current w-60-ns tc pa1">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-      </div>
-      <div class="w-20-ns tc tl-ns pa1">
-        {% if page_obj.has_next %}
-        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endif %}
+    {% endif %}
   {% endblock %}
   <div id="footer" class="pa2 bg-moon-gray black bt bg-white-p bw1-p lh-copy">
     <div class="flex ph2">
@@ -125,7 +125,7 @@
           <ul class='di'>
             <li class='di pa1'>
               {% if request.user.is_authenticated %}
-              <a href="{% url 'api-root' %}">API Explorer</a>
+                <a href="{% url 'api-root' %}">API Explorer</a>
               {% endif %}
             </li>
             <li class='di pa1'>

@@ -2,78 +2,78 @@
 {% load static localtime lazysignup_tags %}
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
+  <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
 {% endblock %}
 {% block content %}
-{% if can_edit %}
-<div class="flex flex-row flex-wrap justify-around {% if is_admin %}bg-light-red{% else %}bg-light-blue{% endif %} black bb ba-ns dn-p mb1">
-  <div class="ma1 ma2-ns flex flex-column justify-center">
-    {% if is_admin %}
-    You have admin access.
-    {% else %}
-    You own this paste.
-    {% endif %}
-    Would you like to&hellip;
-  </div>
-  <div class="flex flex-row flex-wrap justify-center">
-    <a class="ma1 br2 ma2-ns link white bg-dark-red f6 dim pa2 mv2 dib" href="{% url 'delete_paste' paste.id  %}">Delete this paste</a>
-    <a class="ma1 br2 ma2-ns link white bg-dark-gray f6 dim pa2 mv2 dib" href="{% url 'edit_paste' paste.id  %}">Edit this paste</a>
-  </div>
-</div>
-{% endif %}
-<div class="flex">
-  <h1 class="f2 ma1 w-90">{{ paste.title }}</h1>
-  <div class="w-10 flex flex-column tr f5">
-    <div class="h-40 h-100-p f3-p">
-      #{{ paste.id }}
+  {% if can_edit %}
+    <div class="flex flex-row flex-wrap justify-around {% if is_admin %}bg-light-red{% else %}bg-light-blue{% endif %} black bb ba-ns dn-p mb1">
+      <div class="ma1 ma2-ns flex flex-column justify-center">
+        {% if is_admin %}
+          You have admin access.
+        {% else %}
+          You own this paste.
+        {% endif %}
+        Would you like to&hellip;
+      </div>
+      <div class="flex flex-row flex-wrap justify-center">
+        <a class="ma1 br2 ba b--gray ma2-ns link white bg-dark-red f6 dim pa2 mv2 dib" href="{% url 'delete_paste' paste.id  %}">Delete this paste</a>
+        <a class="ma1 br2 ba b--gray ma2-ns link white bg-blue f6 dim pa2 mv2 dib" href="{% url 'edit_paste' paste.id  %}">Edit this paste</a>
+      </div>
     </div>
-    <div class="h-60 dn-p">
-      <a href="{% url 'show_raw' paste.id %}">Raw</a>
-    </div>
-  </div>
-</div>
-<div class="flex flex-wrap justify-around">
-  <div class="flex flex-column ma3">
-    <div class="h-20 f4 b">Author</div>
-    <div class="h-80">
-      {% if paste.author and not paste.author|is_lazy_user %}
-      <a class="link blue" href="{% url 'profile' paste.author.username %}">
-        {{paste.author.username}}
-      </a>
-      {% else %}
-      Anonymous
-      {% endif %}
+  {% endif %}
+  <div class="flex">
+    <h1 class="f2 ma1 w-90">{{ paste.title }}</h1>
+    <div class="w-10 flex flex-column tr f5">
+      <div class="h-40 h-100-p f3-p">
+#{{ paste.id }}
+      </div>
+      <div class="h-60 dn-p">
+        <a href="{% url 'show_raw' paste.id %}">Raw</a>
+      </div>
     </div>
   </div>
-  <div class="flex flex-column ma3">
-    <div class="h-20 f4 b">Created</div>
-    <div class="h-80">{% localtime paste.timestamp %}</div>
+  <dl class="flex flex-wrap justify-around ma0">
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Author</dt>
+      <dd class="h-80 ma0">
+        {% if paste.author and not paste.author|is_lazy_user %}
+          <a class="link blue" href="{% url 'profile' paste.author.username %}">
+            {{paste.author.username}}
+          </a>
+        {% else %}
+          Anonymous
+        {% endif %}
+      </dd>
+    </div>
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Created</dt>
+      <dd class="h-80 ma0">{% localtime paste.timestamp %}</dd>
+    </div>
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Expires</dt>
+      <dd class="h-80 ma0">{% if paste.expiry %}{% localtime paste.expiry %}{% else %}Never{% endif %}</dd>
+    </div>
+    <div class="flex flex-column ma3"
+         title="The title length plus the body length.  (Both as utf-8 bytes.)">
+      <dt class="h-20 f4 b">Size</dt>
+      <dd class="h-80 ma0">{{ paste.size|filesizeformat }}</dd>
+    </div>
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Hits</dt>
+      <dd class="h-80 ma0">{{ paste.hits }}</dd>
+    </div>
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Syntax</dt>
+      <dd class="h-80 ma0">{% if paste.language %}{{ paste.language.name }}{% else %}None{% endif %}</dd>
+    </div>
+  </dl>
+  <div class="no-select">
+    <input type="checkbox" id="toggle-wrap" class="dn-p">
+    <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
+    <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>
   </div>
-  <div class="flex flex-column ma3">
-    <div class="h-20 f4 b">Expires</div>
-    <div class="h-80">{% if paste.expiry %}{% localtime paste.expiry %}{% else %}Never{% endif %}</div>
+  <div id='body-container' class="code w-100 bw1 bw1-ns mt1 bt bb br-ns bl-ns b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p bg-white">
+    {{paste_body_html|safe}}
   </div>
-  <div class="flex flex-column ma3"
-       title="The title length plus the body length.  (Both as utf-8 bytes.)">
-    <div class="h-20 f4 b">Size</div>
-    <div class="h-80">{{ paste.size|filesizeformat }}</div>
-  </div>
-  <div class="flex flex-column ma3">
-    <div class="h-20 f4 b">Hits</div>
-    <div class="h-80">{{ paste.hits }}</div>
-  </div>
-  <div class="flex flex-column ma3">
-    <div class="h-20 f4 b">Syntax</div>
-    <div class="h-80">{% if paste.language %}{{ paste.language.name }}{% else %}None{% endif %}</div>
-  </div>
-</div>
-<div class="no-select">
-  <input type="checkbox" id="toggle-wrap" class="dn-p">
-  <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
-  <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>
-</div>
-<div id='body-container' class="code w-100 bw1 bw1-ns mt1 bt bb br-ns bl-ns b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p bg-white">
-  {{paste_body_html|safe}}
-</div>
 
 {% endblock %}

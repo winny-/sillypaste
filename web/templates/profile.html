@@ -3,17 +3,17 @@
 {% block title %}{% if request.user == user %}My profile{% else %}{{user.username}}{% endif %}{% endblock %}
 {% block content %}
 
-<h1>{{user.username}} {% if user|is_lazy_user %}(anonymous){% endif %}</h1>
-{% if request.user == user %}
-<ul>
-  {% if user|is_lazy_user %}
-  <li class='mv1'><a class="link blue tr" href="{% url 'login' %}">Log in or register to claim the posts associated with this anonymous account.</a></li>
-  <li class='mv1'><a class="link blue tr" href="{% url 'logout' %}">Forget this anonymous user</a></li>
-  {% else %}
-  <li class='mv1'><a class="link blue tr" href="{% url 'password_change' %}">Change Password</a></li>
+  <h1>{{user.username}} {% if user|is_lazy_user %}(anonymous){% endif %}</h1>
+  {% if request.user == user %}
+    <ul>
+      {% if user|is_lazy_user %}
+        <li class='mv1'><a class="link blue tr" href="{% url 'login' %}">Log in or register to claim the posts associated with this anonymous account.</a></li>
+        <li class='mv1'><a class="link blue tr" href="{% url 'logout' %}">Forget this anonymous user</a></li>
+      {% else %}
+        <li class='mv1'><a class="link blue tr" href="{% url 'password_change' %}">Change Password</a></li>
+      {% endif %}
+    </ul>
   {% endif %}
-</ul>
-{% endif %}
-<h2>{% if request.user == user %}My {% endif %}Pastes</h2>
-{% include "paste_list_snippet.html" %}
+  <h2>{% if request.user == user %}My {% endif %}Pastes</h2>
+  {% include "paste_list_snippet.html" %}
 {% endblock %}
