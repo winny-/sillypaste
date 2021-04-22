@@ -6,8 +6,8 @@
 {% block content %}
 
   {% if top %}
-    <h1>Top Pastes</h1>
-    <div class="flex flex-wrap justify-center justify-start-ns">
+    <h1 class='ma1 pa1 f2'>Top Pastes</h1>
+    <div class="flex flex-wrap justify-center justify-start-ns mt2 mb3">
       {% for p in top %}
         <a class='grow custom-link no-underline' href="{% url 'show_paste' p.pk %}">
           <article class="w5 hidden ba ma1 ma2-ns shadow-1 paste-card">
@@ -23,8 +23,8 @@
   {% endif %}
 
   {% if recent %}
-    <h1>Recent Pastes</h1>
-    <div class="flex flex-wrap justify-center justify-start-ns">
+    <h1 class='ma1 pa1 f2'>Recent Pastes</h1>
+    <div class="flex flex-wrap justify-center justify-start-ns mt2 mb3">
       {% for p in recent %}
         <a class='grow custom-link no-underline' href="{% url 'show_paste' p.pk %}">
           <article class="w5 hidden ba ma1 ma2-ns shadow-1 paste-card">
