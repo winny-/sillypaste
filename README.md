@@ -21,4 +21,4 @@ See example instance [here](https://sillypaste.herokuapp.com/).
 
 ## LICENSE
 
-I, Winston Weinert, place this project in the public domain.
+Unlicense.  See [LICENSE](./LICENSE).
