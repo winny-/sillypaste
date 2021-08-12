@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.db.models.functions import Lower
 from django.core.validators import validate_comma_separated_integer_list
 from django.contrib.auth import get_user_model
@@ -7,6 +8,18 @@ from collections import namedtuple
 
 
 __all__ = ['Paste', 'Language', 'ExpiryLog']
+
+
+class PasteManager(models.Manager):
+
+    def filter_fulltext(self, text):
+        if not text:
+            return self.all()
+        return self.filter(
+            Q(body__icontains=text)
+            | Q(title__icontains=text)
+            | Q(author__username__icontains=text)
+        )
 
 
 class Paste(models.Model):
@@ -33,6 +46,8 @@ class Paste(models.Model):
         blank=True,
         null=True,
     )
+
+    objects = PasteManager()
 
     def save(self, *args, **kwargs):
         """On save, update estimated size of the paste."""

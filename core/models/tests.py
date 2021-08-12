@@ -1,4 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
+
 from core.models import *
 
 
@@ -76,3 +78,17 @@ class TestPaste(TestCase):
         """Just a sanity check due to weird behavior in web.forms.PasteForm."""
         p = Paste.objects.create(title='t', body='b\n')
         self.assertEqual(p.body, 'b\n')
+
+    def test_filtering(self):
+        """Ensure filtering sort of works."""
+        a = Paste.objects.create(title='a funny title', body='')
+        b = Paste.objects.create(title='another one', body='funny body')
+        c = Paste.objects.create(title='one here', body='y body smol')
+        author = get_user_model().objects.create(username='testuser')
+        d = Paste.objects.create(title='here paste', body='smol', author=author)
+
+        self.assertEqual(set(Paste.objects.filter_fulltext('')), {a, b, c, d})
+        self.assertEqual(set(Paste.objects.filter_fulltext('body')), {b, c})
+        self.assertEqual(set(Paste.objects.filter_fulltext('testuser')), {d})
+        self.assertEqual(set(Paste.objects.filter_fulltext('funny')), {a, b})
+        self.assertEqual(set(Paste.objects.filter_fulltext('smol')), {c, d})

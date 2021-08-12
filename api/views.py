@@ -36,8 +36,11 @@ class UserViewSet(ActionPermissionMixin, viewsets.ModelViewSet):
 
 class PasteViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Paste.objects.all()
     serializer_class = PasteSerializer
+    queryset = Paste.objects.all()
+
+    def get_queryset(self):
+        return Paste.objects.filter_fulltext(self.request.query_params.get('q'))
 
 
 class LanguageViewSet(viewsets.ModelViewSet):
