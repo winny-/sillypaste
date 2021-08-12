@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-{% load static localtime lazysignup_tags %}
+{% load static localtime lazysignup_tags query_transform %}
+
 <head>
   <title>{% block title %}{% endblock %} — Silly Paste</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,6 +12,7 @@
   <script type="text/javascript" src="{% static 'sillypaste/main.js' %}"></script>
   {% block head %}{% endblock %}
 </head>
+
 <body class="flex flex-column bg-near-white black bg-white-p">
   <div>
     <nav id="navbar" class="flex flex-column flex-row-ns justify-center justify-between-ns dn-p bb pa2" style="background: rgb(255,160,122); background: linear-gradient(0deg, rgba(255,160,122,1) 0%, rgba(255,196,173,1) 100%);">
@@ -31,6 +33,7 @@
           </div>
         {% endif %}
       </div>
+
       <!-- Right -->
       <div class="f4 flex flex-wrap justify-center justify-end-ns w-40-ns order-2-ns order-1">
         <div class="ma2 tr flex flex-column justify-center">
@@ -84,7 +87,7 @@
         <div class="page-links flex flex-wrap justify-center justify-between-ns flex-row-ns w-50-m w-40-l">
           <div class='w-20-ns tc tr-ns pa1'>
             {% if page_obj.has_previous %}
-              <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">back</a>
+              <a href="{{ request.path }}?{% query_transform request page=page_obj.previous_page_number %}">back</a>
             {% endif %}
           </div>
           <div class="page-current w-60-ns tc pa1">
@@ -92,7 +95,7 @@
           </div>
           <div class="w-20-ns tc tl-ns pa1">
             {% if page_obj.has_next %}
-              <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+              <a href="{{ request.path }}?{% query_transform request page=page_obj.next_page_number %}">next</a>
             {% endif %}
           </div>
         </div>

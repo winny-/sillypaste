@@ -4,6 +4,7 @@ Views that deal with Pastes.
 
 
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -110,3 +111,16 @@ class ListPastes(generic.ListView):
     context_object_name = 'pastes'
     paginate_by = 30
     template_name = 'paste_list.html'
+
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        print(f'query: {q}')
+        if q:
+            queryset = Paste.objects.filter(
+                Q(body__icontains=q) |
+                Q(title__icontains=q) |
+                Q(author__username__icontains=q)
+            )
+        else:
+            queryset = Paste.objects.all()
+        return queryset

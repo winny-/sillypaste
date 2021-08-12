@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block title %}All Pastes{% endblock %}
 {% block content %}
+  <div class='pt3 pb1 flex justify-center'>
+    <form method='get'>
+      <input type='search' name='q' placeholder='Text to search' value="{{ request.GET.q }}"/>
+      <input type='submit' value='Search'/>
+    </form>
+  </div>
   {% include "paste_list_snippet.html" %}
 {% endblock %}
