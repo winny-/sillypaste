@@ -114,7 +114,6 @@ class ListPastes(generic.ListView):
 
     def get_queryset(self):
         q = self.request.GET.get('q')
-        print(f'query: {q}')
         if q:
             queryset = Paste.objects.filter(
                 Q(body__icontains=q) |

@@ -17,6 +17,7 @@ See example instance [here](https://sillypaste.herokuapp.com/).
 - A RESTful API
 - Management via Django Admin
 - Paste expiration via cron job
+- Basic search support (See the "All Pastes" page)
 
 ## LICENSE
 
