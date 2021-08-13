@@ -3,6 +3,8 @@ Views that do not belong in the other files.
 """
 
 
+from lazysignup.models import LazyUser
+from django.contrib.auth import get_user_model
 from django.db.models import Sum, Count
 from django.shortcuts import render
 from django.views import generic
@@ -32,10 +34,15 @@ def index(request):
 @require_GET
 def show_site_stats(request):
     """Statistics about site usage."""
+    lazy_user_count = LazyUser.objects.all().count()
     return render(request, 'show_site_stats.html', {
         'total_pastes_count': Paste.objects.count(),
         'total_pastes_size': Paste.objects.aggregate(total=Sum('size'))['total'],
         'last_expiry_log': ExpiryLog.objects.last(),
-        'total_reclaimed_count': ExpiryLog.objects.aggregate(x=Count('count'))['x'],
+        'total_reclaimed_count': ExpiryLog.objects.aggregate(x=Count('paste_count'))['x'],
         'total_reclaimed_space': ExpiryLog.objects.aggregate(x=Sum('reclaimed_space'))['x'],
+        'total_pruned_user_count': ExpiryLog.objects.aggregate(x=Sum('user_count'))['x'],
+        'total_anonymous_user_count': lazy_user_count,
+        'total_registered_user_count': get_user_model().objects.all().count() - lazy_user_count,
+        'total_user_count': get_user_model().objects.all().count(),
     })

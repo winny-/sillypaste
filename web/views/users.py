@@ -15,7 +15,7 @@ from django.views import generic
 from lazysignup.utils import is_lazy_user
 
 from core.models import Paste
-from web.lazysignup import convert
+from core.lazysignup import convert
 from web.views import ListPastes
 
 

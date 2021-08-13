@@ -9,4 +9,4 @@ class PasteAdmin(admin.ModelAdmin):
 
 @admin.register(ExpiryLog)
 class ExpiryLogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'completed', 'timestamp', 'count', 'reclaimed_space')
+    list_display = ('id', 'completed', 'timestamp', 'paste_count', 'reclaimed_space', 'user_count')

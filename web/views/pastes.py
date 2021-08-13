@@ -18,7 +18,7 @@ from pygments.util import ClassNotFound
 
 from core.permissions import user_can_edit_paste, admin_using_powers
 from core.models import Paste
-from web.lazysignup import allow_lazy_user
+from core.lazysignup import allow_lazy_user
 from web.forms import PasteForm
 
 

@@ -90,6 +90,8 @@ class ExpiryLog(models.Model):
                                    max_length=int(pow(2, 20)),
                                    validators=[validate_comma_separated_integer_list])
     timestamp = models.DateTimeField(auto_now_add=True)
-    count = models.PositiveIntegerField(default=0)
+    user_cutoff = models.DateTimeField(auto_now_add=True)
+    paste_count = models.PositiveIntegerField(default=0)
     reclaimed_space = models.PositiveIntegerField(default=0)
+    user_count = models.PositiveIntegerField(default=0)
     completed = models.BooleanField(default=False)

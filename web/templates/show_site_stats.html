@@ -4,12 +4,15 @@
 {% block content %}
   <h1>Usage</h1>
   <p>{{ total_pastes_count }} un-expired paste, using {{ total_pastes_size | filesizeformat }}.</p>
+  <p>{{ total_registered_user_count }} registered users, {{ total_anonymous_user_count }} anonymous users ({{ total_user_count }} total.)</p>
+  <p>{{ total_pruned_user_count }} anonymous users have been pruned.</p>
   <h1>Expiry</h1>
   <p>{{ total_reclaimed_count }} pastes reclaimed.</p>
   <p>{{ total_reclaimed_space | filesizeformat }} reclaimed.</p>
   {% if last_expiry_log %}
     <h2>Last Expiry Check</h2>
-    <p>Reclaimed {{ last_expiry_log.count }} pastes at {% localtime last_expiry_log.timestamp %} saving {{ last_expiry_log.reclaimed_space | filesizeformat }}.</p>
+    <p>Reclaimed {{ last_expiry_log.paste_count }} pastes at {% localtime last_expiry_log.timestamp %} saving {{ last_expiry_log.reclaimed_space | filesizeformat }}.</p>
+    <p>Pruned {{ last_expiry_log.user_count }} anonymous user sessions that were last used {% localtime last_expiry_log.user_cutoff %}</p>
     {% if not last_expiry_log.completed %}
       <p>This expiry check is marked as incomplete.</p>
     {% endif %}
