@@ -29,7 +29,7 @@ class Command(BaseCommand):
         else:
             print('Found no expired pastes.')
 
-        user_cutoff = now - timedelta(days=30*6)
+        expiry_log.user_cutoff = user_cutoff = now - timedelta(days=30*6)
         print(f'Searching for old lazy users from before {user_cutoff}')
         old_users = LazyUser.objects.filter(user__last_login__lt=user_cutoff)
         if old_users:
