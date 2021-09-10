@@ -16,7 +16,7 @@ Pygments==2.8.1
 pytz==2021.1
 six==1.15.0
 soupsieve==2.2.1
-sqlparse==0.4.1
+sqlparse==0.4.2
 tornado==6.1
 whitenoise==5.2.0
 zipp==3.4.1
