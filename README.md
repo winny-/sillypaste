@@ -18,6 +18,7 @@ See example instance [here](https://sillypaste.herokuapp.com/).
 - Management via Django Admin
 - Paste expiration via cron job
 - Basic search support (See the "All Pastes" page)
+- HTML Rendering of Markdown and Org Mode documents.
 
 ## LICENSE
 
