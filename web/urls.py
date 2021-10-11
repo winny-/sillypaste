@@ -39,6 +39,7 @@ urlpatterns = [
     path('<int:pk>/edit', views.PasteUpdate.as_view(), name='edit_paste'),
     path('all', views.ListPastes.as_view(), name='all_pastes'),
     path('<int:paste_id>/raw', views.show_raw, name='show_raw'),
+    path('<int:paste_id>/render', views.render_paste, name='render_paste'),
     path('stats', views.show_site_stats, name='show_site_stats'),
     path('profile/<username>', views.Profile.as_view(), name='profile'),
     path('my_pastes', views.ListMyPastes.as_view(), name='my_pastes'),

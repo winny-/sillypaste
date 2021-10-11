@@ -2,7 +2,11 @@
 {% load static localtime lazysignup_tags %}
 {% block title %}{{ paste.title }} (#{{ paste.id }}){% endblock %}
 {% block head %}
-  <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}">
+  {% if rendered %}
+    <link rel="stylesheet" href="{% static 'sillypaste/rendered.css' %}" />
+  {% else %}
+    <link rel="stylesheet" href="{% static 'sillypaste/pygments.css' %}" />
+  {% endif %}
 {% endblock %}
 {% block content %}
   {% if can_edit %}
@@ -67,13 +71,40 @@
       <dd class="h-80 ma0">{% if paste.language %}{{ paste.language.name }}{% else %}None{% endif %}</dd>
     </div>
   </dl>
-  <div class="no-select">
-    <input type="checkbox" id="toggle-wrap" class="dn-p">
-    <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
-    <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>
-  </div>
-  <div id='body-container' class="code w-100 bw1 bw1-ns mt1 bt bb br-ns bl-ns b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p bg-white">
-    {{paste_body_html|safe}}
-  </div>
+  {% if paste.renderable %}
+    <div class="flex flex-row flex-wrap justify-between bg-gold black bb ba-ns dn-p mb1">
+      <div class="ma1 ma2-ns flex flex-column justify-center">
+        {% if rendered %}
+          You are viewing the rendered version of this paste.  Click "Source" to see the source.
+        {% else %}
+          You are viewing the source code of this paste.  Click "Render" to see the formatted version.
+        {% endif %}
+      </div>
 
+      <div class="flex flex-row flex-wrap justify-center">
+        <a class="ma1 br2 ba ma2-ns link f6 dim pa2 mv2 dib {% if rendered %}inactive-link light-silver bg-moon-gray b--moon-gray{% else %}white bg-navy b--gray{% endif %}"
+           href="{% url 'render_paste' paste.id  %}">
+          Render
+        </a>
+        <a class="ma1 br2 ba ma2-ns link f6 dim pa2 mv2 dib {% if not rendered %}inactive-link light-silver bg-moon-gray b--moon-gray{% else %}white bg-navy b--gray{% endif %}"
+           href="{% url 'show_paste' paste.id  %}">
+          Source
+        </a>
+      </div>
+    </div>
+  {% endif %}
+  {% if rendered %}
+    <div id='body-container' class='w-100 bw1 bw1-ns mt1 bt bb br-ns bl-ns b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p bg-white rendered'>
+      {{paste_body_html|safe}}
+    </div>
+  {% else %}
+    <div class="no-select">
+      <input type="checkbox" id="toggle-wrap" class="dn-p">
+      <label for="toggle-wrap" class="dn-p">Wrap long lines</label>
+      <noscript class="i">(This feature requires Javascript, sorry! 🙁)</noscript>
+    </div>
+    <div id='body-container' class="code w-100 bw1 bw1-ns mt1 bt bb br-ns bl-ns b--dark-gray pa1 br-0-p bl-0-p ph0-p bb-0-p b--black-p bg-white">
+      {{paste_body_html|safe}}
+    </div>
+  {% endif %}
 {% endblock %}

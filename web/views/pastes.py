@@ -5,7 +5,7 @@ Views that deal with Pastes.
 
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views import generic
@@ -16,13 +16,24 @@ from pygments.formatters import HtmlFormatter
 from pygments.lexers.special import TextLexer
 from pygments.util import ClassNotFound
 
+import markdown
+import orgpython
+
 from core.permissions import user_can_edit_paste, admin_using_powers
 from core.models import Paste
 from core.lazysignup import allow_lazy_user
 from web.forms import PasteForm
 
 
-__all__ = ['PasteDelete', 'PasteUpdate', 'show_paste', 'show_raw', 'make_paste', 'ListPastes']
+__all__ = [
+    'PasteDelete',
+    'PasteUpdate',
+    'show_paste',
+    'render_paste',
+    'show_raw',
+    'make_paste',
+    'ListPastes',
+]
 
 
 class AuthorAccessingPasteViewMixin:
@@ -70,7 +81,33 @@ def show_paste(request, paste_id):
         'paste_body_html': body_html,
         'can_edit': user_can_edit_paste(request.user, p),
         'is_admin': admin_using_powers(request.user, p),
+        'rendered': False,
     })
+
+
+@require_GET
+def render_paste(request, paste_id):
+    """Render a Paste or redirect to the Paste's canonical address if not
+    render-able."""
+    p = get_object_or_404(Paste, pk=paste_id)
+    # import pdb; pdb.set_trace()
+    if hasattr(p, 'language'):
+        html = None
+        if p.language.name == 'markdown':
+            html = markdown.markdown(p.body)
+        elif p.language.name == 'org-mode':
+            html = orgpython.to_html(p.body)
+        if html:
+            return render(request, 'show_paste.html', {
+                'paste': p.view(),
+                'paste_body_html': html,
+                'can_edit': user_can_edit_paste(request.user, p),
+                'is_admin': admin_using_powers(request.user, p),
+                'rendered': True,
+            })
+    # Redirect to the canonical URL if it's not render-able.
+    return redirect(p)
+
 
 
 @require_GET
@@ -92,10 +129,7 @@ def make_paste(request):
             if request.user.is_authenticated:
                 p.author = request.user
                 p.save()
-            return HttpResponseRedirect(reverse(
-                'show_paste',
-                kwargs={'paste_id':p.id},
-            ))
+            return redirect(p)
     else:
         form = PasteForm()
 

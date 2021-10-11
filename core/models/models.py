@@ -72,8 +72,15 @@ class Paste(models.Model):
         return '\n'.join(line[:self.BODY_SQUARE_DIMENSIONS.columns]
                          for line in lines)
 
+    @property
+    def renderable(self):
+        return self.language and self.language.name in Language.RENDERABLE_LANGUAGES
+
 
 class Language(models.Model):
+
+    # Used to always ensure they are valid.
+    RENDERABLE_LANGUAGES = frozenset({'markdown', 'org-mode'})
 
     class Meta:
         ordering = (Lower('name'), )

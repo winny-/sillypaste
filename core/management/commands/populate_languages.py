@@ -15,7 +15,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        names = {lex[0] for lex in lexers.get_all_lexers()}
+        names = {lex[0] for lex in lexers.get_all_lexers()} | Language.RENDERABLE_LANGUAGES
         unknown = Language.objects.exclude(name__in=names).order_by('pk')
         if unknown.exists():
             print('!!! Unknown lexers in database.')

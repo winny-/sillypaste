@@ -83,3 +83,8 @@ pre { overflow-x: auto; }
 a:not(.custom-link) { opacity: 1; transition: opacity .15s ease-in; }
 a:hover:not(.custom-link), a:focus:not(.custom-link) { opacity: .5; transition: opacity .15s ease-in; }
 a:active:not(.custom-link) { opacity: .8; transition: opacity .15s ease-out; }
+
+.inactive-link {
+    pointer-events: none;
+    cursor: default;
+}

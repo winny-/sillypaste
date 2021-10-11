@@ -1,0 +1,11 @@
+/* Org-mode TODO headers. */
+#body-container .todo {
+    margin-right: .4em;
+    padding: 0 .1em;
+    background: #fed8b1;
+    border: .09em solid #ffb653;
+}
+
+#body-container.rendered > pre {
+    background: #eee;
+}
