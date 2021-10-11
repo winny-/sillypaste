@@ -93,6 +93,8 @@ class Language(models.Model):
 
 class ExpiryLog(models.Model):
 
+    MAX_ENTRIES = 200
+
     expired_ids = models.CharField(blank=True,
                                    max_length=int(pow(2, 20)),
                                    validators=[validate_comma_separated_integer_list])

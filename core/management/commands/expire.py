@@ -40,5 +40,23 @@ class Command(BaseCommand):
         else:
             print('Found no old lazy users.')
 
+        count = ExpiryLog.objects.count()
+        if count > ExpiryLog.MAX_ENTRIES:
+            print(f'There are {count} ExpiryLog entries.  Compressing to {ExpiryLog.MAX_ENTRIES}.')
+            prune_count = 1 + (count - ExpiryLog.MAX_ENTRIES)
+            qs = ExpiryLog.objects.order_by('timestamp')
+            last_kept = qs[prune_count]
+            for el in qs[:prune_count]:
+                if el.completed:
+                    last_kept.reclaimed_space += el.reclaimed_space
+                    last_kept.user_count += el.user_count
+                    if el.expired_ids:
+                        if last_kept.expired_ids:
+                            last_kept.expired_ids += ',' + el.expired_ids
+                        else:
+                            last_kept.expired_ids = el.expired_ids
+                el.delete()
+            last_kept.save()
+
         expiry_log.completed = True
         expiry_log.save()
