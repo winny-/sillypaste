@@ -7,7 +7,6 @@ import pytz
 
 
 class TestValidatoFutureDatetime(TestCase):
-
     def test_past(self):
         with self.assertRaises(ValidationError):
             t = datetime(1980, 1, 1, 19, 1, 0, 0, pytz.UTC)

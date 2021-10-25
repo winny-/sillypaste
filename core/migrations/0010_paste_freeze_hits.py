@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0009_auto_20200910_0350'),
-    ]
+    dependencies = [('core', '0009_auto_20200910_0350')]
 
     operations = [
         migrations.AddField(
             model_name='paste',
             name='freeze_hits',
             field=models.BooleanField(blank=True, default=False),
-        ),
+        )
     ]

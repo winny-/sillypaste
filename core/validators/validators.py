@@ -8,5 +8,6 @@ __all__ = ['validate_future_datetime']
 
 def validate_future_datetime(value):
     if value <= timezone.now():
-        raise ValidationError(_('%(value)s is in the past'),
-                              params={'value': value})
+        raise ValidationError(
+            _('%(value)s is in the past'), params={'value': value}
+        )

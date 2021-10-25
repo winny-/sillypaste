@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0003_paste_hits'),
-    ]
+    dependencies = [('core', '0003_paste_hits')]
 
     operations = [
         migrations.AlterField(
             model_name='paste',
             name='expiry',
             field=models.DateTimeField(blank=True, null=True),
-        ),
+        )
     ]

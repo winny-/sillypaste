@@ -5,14 +5,11 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0008_auto_20200908_1618'),
-    ]
+    dependencies = [('core', '0008_auto_20200908_1618')]
 
     operations = [
         migrations.AlterModelOptions(
-            name='paste',
-            options={'ordering': ('pk',)},
+            name='paste', options={'ordering': ('pk',)}
         ),
         migrations.AlterField(
             model_name='paste',

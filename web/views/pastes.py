@@ -4,9 +4,8 @@ Views that deal with Pastes.
 
 
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_GET, require_http_methods
@@ -37,7 +36,9 @@ __all__ = [
 
 
 class AuthorAccessingPasteViewMixin:
-    """Prevent non-owners or non-admins from modifying pastes that are not theirs."""
+    """Prevent non-owners or non-admins from modifying pastes that are not
+    theirs."""
+
     def get_object(self, queryset=None):
         obj = super().get_object()
         if not user_can_edit_paste(self.request.user, obj):
@@ -47,6 +48,7 @@ class AuthorAccessingPasteViewMixin:
 
 class PasteDelete(AuthorAccessingPasteViewMixin, generic.DeleteView):
     """Delete Paste confirmation page."""
+
     model = Paste
     success_url = reverse_lazy('index')
     template_name = 'paste_confirm_delete.html'
@@ -54,6 +56,7 @@ class PasteDelete(AuthorAccessingPasteViewMixin, generic.DeleteView):
 
 class PasteUpdate(AuthorAccessingPasteViewMixin, generic.UpdateView):
     """Update an existing Paste."""
+
     form_class = PasteForm
     model = Paste
     template_name = 'paste_update.html'
@@ -61,7 +64,8 @@ class PasteUpdate(AuthorAccessingPasteViewMixin, generic.UpdateView):
 
 @require_GET
 def show_paste(request, paste_id):
-    """View a Paste with links to delete or edit if you're the appropriate user."""
+    """View a Paste with links to delete or edit if you're the appropriate
+    user."""
     p = get_object_or_404(Paste, pk=paste_id)
     formatter = HtmlFormatter()
     try:
@@ -71,18 +75,18 @@ def show_paste(request, paste_id):
             formatter,
         )
     except (ClassNotFound, AttributeError):
-        body_html = highlight(
-            p.body,
-            TextLexer(),
-            formatter
-        )
-    return render(request, 'show_paste.html', {
-        'paste': p.view(),
-        'paste_body_html': body_html,
-        'can_edit': user_can_edit_paste(request.user, p),
-        'is_admin': admin_using_powers(request.user, p),
-        'rendered': False,
-    })
+        body_html = highlight(p.body, TextLexer(), formatter)
+    return render(
+        request,
+        'show_paste.html',
+        {
+            'paste': p.view(),
+            'paste_body_html': body_html,
+            'can_edit': user_can_edit_paste(request.user, p),
+            'is_admin': admin_using_powers(request.user, p),
+            'rendered': False,
+        },
+    )
 
 
 @require_GET
@@ -98,16 +102,19 @@ def render_paste(request, paste_id):
         elif p.language.name == 'org-mode':
             html = orgpython.to_html(p.body)
         if html:
-            return render(request, 'show_paste.html', {
-                'paste': p.view(),
-                'paste_body_html': html,
-                'can_edit': user_can_edit_paste(request.user, p),
-                'is_admin': admin_using_powers(request.user, p),
-                'rendered': True,
-            })
+            return render(
+                request,
+                'show_paste.html',
+                {
+                    'paste': p.view(),
+                    'paste_body_html': html,
+                    'can_edit': user_can_edit_paste(request.user, p),
+                    'is_admin': admin_using_powers(request.user, p),
+                    'rendered': True,
+                },
+            )
     # Redirect to the canonical URL if it's not render-able.
     return redirect(p)
-
 
 
 @require_GET
@@ -133,13 +140,12 @@ def make_paste(request):
     else:
         form = PasteForm()
 
-    return render(request, 'make_paste.html', {
-        'form': form,
-    })
+    return render(request, 'make_paste.html', {'form': form})
 
 
 class ListPastes(generic.ListView):
     """List all pastes on the site."""
+
     model = Paste
     context_object_name = 'pastes'
     paginate_by = 30
@@ -147,4 +153,3 @@ class ListPastes(generic.ListView):
 
     def get_queryset(self):
         return Paste.objects.filter_fulltext(self.request.GET.get('q'))
-

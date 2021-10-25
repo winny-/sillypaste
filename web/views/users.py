@@ -26,6 +26,7 @@ class LoginView(auth_views.LoginView):
     """Log in page.
 
     Contains a link to the Register page."""
+
     def form_valid(self, form):
         convert(self.request.user, form.get_user())
         return super().form_valid(form)
@@ -33,6 +34,7 @@ class LoginView(auth_views.LoginView):
 
 class Register(generic.CreateView):
     """Register a new user."""
+
     form_class = UserCreationForm
     success_url = reverse_lazy('index')
     template_name = 'registration/register.html'
@@ -51,6 +53,7 @@ class Register(generic.CreateView):
 
 class Profile(ListPastes):
     """View profile of any user."""
+
     template_name = 'profile.html'
 
     def get_context_data(self, **kwargs):
@@ -72,7 +75,9 @@ class ListMyPastes(LoginRequiredMixin, generic.RedirectView):
     """List my own pastes.
 
     Works with lazy users."""
+
     pattern_name = 'profile'
+
     def get_redirect_url(self, *args, **kwargs):
         kwargs['username'] = self.request.user.username
         return super().get_redirect_url(*args, **kwargs)

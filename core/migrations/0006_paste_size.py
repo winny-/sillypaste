@@ -4,24 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     def resave(apps, schema_editor):
         Paste = apps.get_model('core', 'Paste')
         for p in Paste.objects.all():
             # p.save() does not appear to call the custom save method on the
             # Paste model :/ So just reproduce the logic here.
-            p.size = sum([
-                len(p.title.encode('utf-8')),
-                len(p.body.encode('utf-8')),
-            ])
+            p.size = sum(
+                [len(p.title.encode('utf-8')), len(p.body.encode('utf-8'))]
+            )
             p.save()
 
     def do_nothing(apps, schema_editor):
         pass
 
-    dependencies = [
-        ('core', '0005_expirylog'),
-    ]
+    dependencies = [('core', '0005_expirylog')]
 
     operations = [
         migrations.AddField(

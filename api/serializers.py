@@ -3,6 +3,7 @@ from core.models import Paste, ExpiryLog, Language
 from rest_framework import serializers
 from core.validators import validate_future_datetime
 
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
@@ -13,7 +14,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class PasteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Paste
-        fields = ['id', 'title', 'body', 'timestamp', 'expiry', 'freeze_hits', 'hits', 'size', 'author', 'language']
+        fields = [
+            'id',
+            'title',
+            'body',
+            'timestamp',
+            'expiry',
+            'freeze_hits',
+            'hits',
+            'size',
+            'author',
+            'language',
+        ]
         read_only_fields = ['id', 'freeze_hits', 'hits']
 
     def validate_expiry(self, value):
@@ -31,5 +43,12 @@ class LanguageSerializer(serializers.HyperlinkedModelSerializer):
 class ExpiryLogSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ExpiryLog
-        fields = ['id', 'expired_ids', 'timestamp', 'count', 'reclaimed_space', 'completed']
+        fields = [
+            'id',
+            'expired_ids',
+            'timestamp',
+            'count',
+            'reclaimed_space',
+            'completed',
+        ]
         read_only_fields = ['id']

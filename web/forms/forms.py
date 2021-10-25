@@ -25,7 +25,9 @@ class PasteForm(forms.ModelForm):
     ]
     EXPIRY_CHOICES = EXPIRY_CHOICES_NO_CUSTOM + [('custom', 'Custom')]
 
-    expiry_preset = forms.ChoiceField(choices=EXPIRY_CHOICES, initial='1day', required=False)
+    expiry_preset = forms.ChoiceField(
+        choices=EXPIRY_CHOICES, initial='1day', required=False
+    )
     custom_expiry_date = forms.DateField(required=False)
     custom_expiry_time = forms.TimeField(required=False)
 
@@ -42,11 +44,13 @@ class PasteForm(forms.ModelForm):
                     self.CUSTOM_EXPIRY_TIME_FORMAT
                 )
                 expiry_preset = 'custom'
-            kwargs.update(initial={
-                'custom_expiry_date': custom_expiry_date,
-                'custom_expiry_time': custom_expiry_time,
-                'expiry_preset': expiry_preset,
-            })
+            kwargs.update(
+                initial={
+                    'custom_expiry_date': custom_expiry_date,
+                    'custom_expiry_time': custom_expiry_time,
+                    'expiry_preset': expiry_preset,
+                }
+            )
         super().__init__(*args, **kwargs)
         self.fields['body'].strip = False  # Leave whitespace alone.
 
@@ -63,9 +67,13 @@ class PasteForm(forms.ModelForm):
             self.cleaned_data['expiry'] = timezone.now() + timedelta(hours=1)
         elif ep == 'custom':
             if self.cleaned_data.get('custom_expiry_date') is None:
-                raise ValidationError('Custom expiry selected but no date provided.')
+                raise ValidationError(
+                    'Custom expiry selected but no date provided.'
+                )
             elif self.cleaned_data.get('custom_expiry_time') is None:
-                raise ValidationError('Custom expiry selected but no time provided.')
+                raise ValidationError(
+                    'Custom expiry selected but no time provided.'
+                )
             time = self.cleaned_data['custom_expiry_time']
             date = self.cleaned_data['custom_expiry_date']
             ce = datetime.combine(date, time)

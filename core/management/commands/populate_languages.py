@@ -1,4 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from core.models import Language
 from pygments import lexers
 import sys
@@ -15,7 +15,9 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        names = {lex[0] for lex in lexers.get_all_lexers()} | Language.RENDERABLE_LANGUAGES
+        names = {
+            lex[0] for lex in lexers.get_all_lexers()
+        } | Language.RENDERABLE_LANGUAGES
         unknown = Language.objects.exclude(name__in=names).order_by('pk')
         if unknown.exists():
             print('!!! Unknown lexers in database.')
@@ -23,7 +25,12 @@ class Command(BaseCommand):
                 print(' ' * 4, f'id={u.pk:<4} name="{u.name}"', sep='')
             if not options['remove_unknown']:
                 if not sys.stdin.isatty():
-                    print('!!! stdin is not a tty.  Add --remove-unknown to invocation or run interactively.  Aborting.')
+                    print(
+                        '!!! stdin is not a tty.  '
+                        'Add --remove-unknown to invocation or run '
+                        'interatively.  '
+                        'Aborting.'
+                    )
                     return
                 if input('Continue and DELETE y/n? ') != 'y':
                     return
@@ -35,7 +42,7 @@ class Command(BaseCommand):
         for n in names:
             unprinted_names.append(n)
             width += len(n) + 1
-            lang = Language.objects.get_or_create(name=n)
+            Language.objects.get_or_create(name=n)
             if width > 64:
                 print(' ' * 4, ' '.join(unprinted_names), sep='')
                 width = 0

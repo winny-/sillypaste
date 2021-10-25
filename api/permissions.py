@@ -1,4 +1,8 @@
-from rest_framework.permissions import SAFE_METHODS, BasePermission, IsAuthenticated
+from rest_framework.permissions import (
+    SAFE_METHODS,
+    BasePermission,
+    IsAuthenticated,
+)
 
 
 class DenyAll(BasePermission):
@@ -15,11 +19,14 @@ class ReadOnly(BasePermission):
 
 class IsSameUser(BasePermission):
     """Use on views with the queryset of User.objects"""
+
     message = 'Must be same user'
 
     def has_permission(self, request, view):
-        return (IsAuthenticated().has_permission(request, view)
-                and int(view.kwargs['pk']) == request.user.id)
+        return (
+            IsAuthenticated().has_permission(request, view)
+            and int(view.kwargs['pk']) == request.user.id
+        )
 
 
 class IsOwnerOrReadOnly(BasePermission):

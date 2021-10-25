@@ -8,5 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('health/', include('watchman.urls')),
     path('', include(web_urlpatterns)),
-    path('', include(api_urlpatterns))
+    path('', include(api_urlpatterns)),
 ]

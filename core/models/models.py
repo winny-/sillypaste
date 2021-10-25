@@ -11,7 +11,6 @@ __all__ = ['Paste', 'Language', 'ExpiryLog']
 
 
 class PasteManager(models.Manager):
-
     def filter_fulltext(self, text):
         if not text:
             return self.all()
@@ -23,9 +22,8 @@ class PasteManager(models.Manager):
 
 
 class Paste(models.Model):
-
     class Meta:
-        ordering = ('pk', )
+        ordering = ('pk',)
 
     title = models.CharField(max_length=100)
     body = models.TextField()
@@ -35,26 +33,19 @@ class Paste(models.Model):
     hits = models.PositiveIntegerField(default=0)
     size = models.PositiveIntegerField(default=0, editable=False)
     author = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
+        get_user_model(), on_delete=models.CASCADE, blank=True, null=True
     )
     language = models.ForeignKey(
-        'Language',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
+        'Language', on_delete=models.SET_NULL, blank=True, null=True
     )
 
     objects = PasteManager()
 
     def save(self, *args, **kwargs):
         """On save, update estimated size of the paste."""
-        self.size = sum([
-            len(self.title.encode('utf-8')),
-            len(self.body.encode('utf-8')),
-        ])
+        self.size = sum(
+            [len(self.title.encode('utf-8')), len(self.body.encode('utf-8'))]
+        )
         return super().save(*args, **kwargs)
 
     def view(self):
@@ -66,15 +57,22 @@ class Paste(models.Model):
     def get_absolute_url(self):
         return reverse('show_paste', kwargs={'paste_id': self.pk})
 
-    BODY_SQUARE_DIMENSIONS = namedtuple('dimensions', ['columns','rows'])(30,9)  # cols, rows
+    BODY_SQUARE_DIMENSIONS = namedtuple('dimensions', ['columns', 'rows'])(
+        30, 9
+    )  # cols, rows
+
     def body_square(self):
-        lines = self.body.split('\n')[:self.BODY_SQUARE_DIMENSIONS.rows]
-        return '\n'.join(line[:self.BODY_SQUARE_DIMENSIONS.columns]
-                         for line in lines)
+        lines = self.body.split('\n')[: self.BODY_SQUARE_DIMENSIONS.rows]
+        return '\n'.join(
+            line[: self.BODY_SQUARE_DIMENSIONS.columns] for line in lines
+        )
 
     @property
     def renderable(self):
-        return self.language and self.language.name in Language.RENDERABLE_LANGUAGES
+        return (
+            self.language
+            and self.language.name in Language.RENDERABLE_LANGUAGES
+        )
 
 
 class Language(models.Model):
@@ -83,7 +81,7 @@ class Language(models.Model):
     RENDERABLE_LANGUAGES = frozenset({'markdown', 'org-mode'})
 
     class Meta:
-        ordering = (Lower('name'), )
+        ordering = (Lower('name'),)
 
     name = models.CharField(max_length=50)
 
@@ -95,9 +93,11 @@ class ExpiryLog(models.Model):
 
     MAX_ENTRIES = 200
 
-    expired_ids = models.CharField(blank=True,
-                                   max_length=int(pow(2, 20)),
-                                   validators=[validate_comma_separated_integer_list])
+    expired_ids = models.CharField(
+        blank=True,
+        max_length=int(pow(2, 20)),
+        validators=[validate_comma_separated_integer_list],
+    )
     timestamp = models.DateTimeField(auto_now_add=True)
     user_cutoff = models.DateTimeField(auto_now_add=True)
     paste_count = models.PositiveIntegerField(default=0)

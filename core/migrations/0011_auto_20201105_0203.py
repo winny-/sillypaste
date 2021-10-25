@@ -6,13 +6,13 @@ import django.db.models.functions.text
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0010_paste_freeze_hits'),
-    ]
+    dependencies = [('core', '0010_paste_freeze_hits')]
 
     operations = [
         migrations.AlterModelOptions(
             name='language',
-            options={'ordering': (django.db.models.functions.text.Lower('name'),)},
-        ),
+            options={
+                'ordering': (django.db.models.functions.text.Lower('name'),)
+            },
+        )
     ]

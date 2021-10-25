@@ -6,15 +6,11 @@ import django.utils.timezone
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0011_auto_20201105_0203'),
-    ]
+    dependencies = [('core', '0011_auto_20201105_0203')]
 
     operations = [
         migrations.RenameField(
-            model_name='expirylog',
-            old_name='count',
-            new_name='paste_count',
+            model_name='expirylog', old_name='count', new_name='paste_count'
         ),
         migrations.AddField(
             model_name='expirylog',
@@ -24,7 +20,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='expirylog',
             name='user_cutoff',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
     ]
