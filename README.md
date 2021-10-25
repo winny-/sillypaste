@@ -19,6 +19,19 @@ See example instance [here](https://sillypaste.herokuapp.com/).
 - Paste expiration via cron job
 - Basic search support (See the "All Pastes" page)
 - HTML Rendering of Markdown and Org Mode documents.
+- Healthchecks
+
+### Health checks
+
+Provided by [django-watchman][django-watchman].  See the following URLs:
+
+| Path                 | Description                      |
+|----------------------|----------------------------------|
+| `/health/`           | JSON endpoint                    |
+| `/health/ping/`      | Get a 200 OK and simple response |
+| `/health/dashboard/` | Human readable dashboard         |
+
+[django-watchman]: https://github.com/mwarkentin/django-watchman
 
 ## LICENSE
 
