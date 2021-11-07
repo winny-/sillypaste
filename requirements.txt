@@ -15,6 +15,7 @@ Markdown==3.3.4
 org-python==0.3.2
 psycopg2==2.8.6
 Pygments==2.8.1
+python-dotenv==0.19.1
 pytz==2021.1
 six==1.15.0
 soupsieve==2.2.1
