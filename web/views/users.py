@@ -68,7 +68,9 @@ class Profile(ListPastes):
 
     def get_queryset(self):
         self.user = get_object_or_404(User, username=self.kwargs['username'])
-        return Paste.objects.filter(author__username=self.user)
+        return Paste.objects.filter(author__username=self.user).order_by(
+            self.get_ordering()
+        )
 
 
 class ListMyPastes(LoginRequiredMixin, generic.RedirectView):

@@ -1,4 +1,4 @@
-{% load localtime %}
+{% load localtime query_transform %}
 {% if pastes %}
   <!-- http://tachyons.io/components/tables/striped-dark/index.html -->
   <div class='ma3-ns'>
@@ -6,12 +6,24 @@
       <table class="f6 w-100 mw8 center ba-ns" cellspacing="0">
         <thead>
           <tr class='stripe-dark'>
-            <th class="fw6 tl pa3 bg-white">ID</th>
-            <th class="fw6 tl pa3 bg-white">Title</th>
-            <th class="fw6 tl pa3 bg-white">Timestamp</th>
-            <th class="fw6 tl pa3 bg-white">Expires</th>
-            <th class="fw6 tl pa3 bg-white">Size</th>
-            <th class="fw6 tl pa3 bg-white">Hits</th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='id' %}">ID</a>
+            </th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='title' %}">Title</a>
+            </th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='timestamp' %}">Timestamp</a>
+            </th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='expiry' %}">Expires</a>
+            </th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='size' %}">Size</a>
+            </th>
+            <th class="fw6 tl pa3 bg-white">
+              <a href="{{ request.path }}?{% query_transform request sort='hits' %}">Hits</a>
+            </th>
           </tr>
         </thead>
         <tbody class='lh-copy'>
