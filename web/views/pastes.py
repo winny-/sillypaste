@@ -2,6 +2,7 @@
 Views that deal with Pastes.
 """
 
+
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -154,13 +155,12 @@ class ListPastes(generic.ListView):
         if self.request.GET.get('sort', 'id') not in (
             f.name for f in Paste._meta.get_fields()
         ):
-            # import pdb; pdb.set_trace()
-            qs = self.request.GET.copy()
-            del qs['sort']
-            params = qs.urlencode()
-            path = self.request.path + ('?' + params if params else '')
-            print(path)
-            return redirect(path)
+            get = self.request.GET.copy()
+            del get['sort']
+            params = get.urlencode()
+            return redirect(
+                self.request.path + ('?' + params if params else '')
+            )
         return super().get(*args, **kwargs)
 
     def get_ordering(self):
