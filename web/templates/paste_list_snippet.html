@@ -1,4 +1,4 @@
-{% load localtime query_transform %}
+{% load localtime query_transform sortable_column %}
 {% if pastes %}
   <!-- http://tachyons.io/components/tables/striped-dark/index.html -->
   <div class='ma3-ns'>
@@ -7,22 +7,22 @@
         <thead>
           <tr class='stripe-dark'>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='id' %}">ID</a>
+              {% sortable_column request 'ID' 'id' 'yes' %}
             </th>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='title' %}">Title</a>
+              {% sortable_column request 'Title' 'title' %}
             </th>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='timestamp' %}">Timestamp</a>
+              {% sortable_column request 'Timestamp' 'timestamp' %}
             </th>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='expiry' %}">Expires</a>
+              {% sortable_column request 'Expires' 'expiry' %}
             </th>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='size' %}">Size</a>
+              {% sortable_column request 'Size' 'size' %}
             </th>
             <th class="fw6 tl pa3 bg-white">
-              <a href="{{ request.path }}?{% query_transform request sort='hits' %}">Hits</a>
+              {% sortable_column request 'Hits' 'hits' %}
             </th>
           </tr>
         </thead>

@@ -1,0 +1,8 @@
+{% load query_transform %}
+{% if selected %}
+  <span class='i b'>{{ pretty_name }}</span>
+{% else %}
+  <a href="{{ request.path }}?{% query_transform request sort=identifier %}">
+    {{ pretty_name }}
+  </a>
+{% endif %}
