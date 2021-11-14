@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import Http404
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 
 from lazysignup.utils import is_lazy_user
@@ -48,7 +48,17 @@ class Register(generic.CreateView):
         )
         convert(self.request.user, new_user)
         login(self.request, new_user)
+        self.object = new_user
         return response
+
+    def get_success_url(self):
+        try:
+            return reverse(
+                'profile', kwargs={'username': self.object.username}
+            )
+        except AttributeError:  # Not the user we were looking for.
+            pass
+        return super().get_success_url()
 
 
 class Profile(ListPastes):

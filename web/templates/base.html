@@ -48,9 +48,9 @@
 
         <div class="ma2 tr flex flex-column justify-center">
           {% if request.user.is_authenticated and not user|is_lazy_user %}
-            <a class="link dark-blue tr" href="{% url 'logout' %}">Log out</a>
+            <a class="link dark-blue tr" href="{% url 'logout' %}?next={{ request.get_full_path|urlencode }}">Log out</a>
           {% else %}
-            <a class="link dark-blue tr" href="{% url 'login' %}">Log in</a>
+            <a class="link dark-blue tr" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">Log in</a>
           {% endif %}
         </div>
       </div>
