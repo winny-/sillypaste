@@ -85,17 +85,27 @@
     {% if is_paginated %}
       <div class="pagination flex pa2 f4 bg-lightest-blue bt justify-center">
         <div class="page-links flex flex-wrap justify-center justify-between-ns flex-row-ns w-50-m w-40-l">
-          <div class='w-20-ns tc tr-ns pa1'>
+          <div class="w-10-ns tc tl-ns pa1">
+            {% if page_obj.has_previous %}
+              <a href="{{ request.path }}?{% query_transform request page=1 %}">first</a>
+            {% endif %}
+          </div>
+          <div class='w-10-ns tc tr-ns pa1'>
             {% if page_obj.has_previous %}
               <a href="{{ request.path }}?{% query_transform request page=page_obj.previous_page_number %}">back</a>
             {% endif %}
           </div>
-          <div class="page-current w-60-ns tc pa1">
+          <div class="page-current w-30-ns tc pa1">
             Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
           </div>
           <div class="w-20-ns tc tl-ns pa1">
             {% if page_obj.has_next %}
               <a href="{{ request.path }}?{% query_transform request page=page_obj.next_page_number %}">next</a>
+            {% endif %}
+          </div>
+          <div class="w-10-ns tc tl-ns pa1">
+            {% if page_obj.has_next %}
+              <a href="{{ request.path }}?{% query_transform request page=page_obj.paginator.num_pages %}">last</a>
             {% endif %}
           </div>
         </div>
