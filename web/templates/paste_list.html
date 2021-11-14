@@ -4,6 +4,7 @@
   <div class='pt3 pb1 flex justify-center'>
     <form method='get'>
       <input type='search' name='q' placeholder='Text to search' value="{{ request.GET.q }}"/>
+      <input type='hidden' name='sort' value='{{ request.GET.sort }}' />
       <input type='submit' value='Search'/>
     </form>
   </div>
