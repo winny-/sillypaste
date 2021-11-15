@@ -7,7 +7,6 @@ register = template.Library()
 @register.inclusion_tag('sortable_column_snippet.html')
 def sortable_column(request, pretty_name, identifier, default=False):
     current = request.GET.get('sort', identifier if default else None)
-    print(identifier, current)
     return {
         'pretty_name': pretty_name,
         'identifier': identifier,
