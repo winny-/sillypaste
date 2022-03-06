@@ -20,6 +20,7 @@ See example instance [here](https://sillypaste.herokuapp.com/).
 - Basic search support (See the "All Pastes" page)
 - HTML Rendering of Markdown and Org Mode documents.
 - Healthchecks
+- Prometheus exporter for stats
 
 ### Health checks
 

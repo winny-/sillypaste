@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'lazysignup',
     'watchman',
+    'django_prometheus',
 ]
 
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'livereload.middleware.LiveReloadScript',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
 ROOT_URLCONF = 'sillypaste.urls'
@@ -87,7 +90,7 @@ WSGI_APPLICATION = 'sillypaste.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django_prometheus.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
@@ -161,3 +164,8 @@ if 'DYNO' in os.environ:
 import django_heroku  # noqa: E402
 
 django_heroku.settings(locals())
+
+
+if 'DYNO' in os.environ:
+    # Enable Prometheus monitoring on Heroku.
+    DATABASES['default']['ENGINE'] = 'django_prometheus.db.backends.postgresql'

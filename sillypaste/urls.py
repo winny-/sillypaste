@@ -10,6 +10,7 @@ urlpatterns = [
     path('health/', include('watchman.urls')),
     path('', include(web_urlpatterns)),
     path('', include(api_urlpatterns)),
+    path('', include('django_prometheus.urls')),
 ]
 
 
