@@ -22,6 +22,11 @@ class PasteManager(models.Manager):
         )
 
 
+class PublicPasteManager(PasteManager):
+    def get_queryset(self):
+        return super().get_queryset().filter(private=False)
+
+
 class Paste(ExportModelOperationsMixin('paste'), models.Model):
     class Meta:
         ordering = ('pk',)
@@ -31,6 +36,7 @@ class Paste(ExportModelOperationsMixin('paste'), models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     expiry = models.DateTimeField(null=True, blank=True)
     freeze_hits = models.BooleanField(default=False, blank=True)
+    private = models.BooleanField(default=False, blank=True)
     hits = models.PositiveIntegerField(default=0)
     size = models.PositiveIntegerField(default=0, editable=False)
     author = models.ForeignKey(
@@ -41,6 +47,7 @@ class Paste(ExportModelOperationsMixin('paste'), models.Model):
     )
 
     objects = PasteManager()
+    public_objects = PublicPasteManager()
 
     def save(self, *args, **kwargs):
         """On save, update estimated size of the paste."""

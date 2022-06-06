@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.decorators.http import require_GET, require_http_methods
+from django.db.models import Q
 
 from pygments import lexers, highlight
 from pygments.formatters import HtmlFormatter
@@ -94,7 +95,6 @@ def render_paste(request, paste_id):
     """Render a Paste or redirect to the Paste's canonical address if not
     render-able."""
     p = get_object_or_404(Paste, pk=paste_id)
-    # import pdb; pdb.set_trace()
     if hasattr(p, 'language'):
         html = None
         if p.language.name == 'markdown':
@@ -173,4 +173,9 @@ class ListPastes(generic.ListView):
 
     def get_queryset(self):
         objs = Paste.objects.filter_fulltext(self.request.GET.get('q'))
+        if not self.request.user.is_staff:
+            filter_author = Q()
+            if not self.request.user.is_anonymous:
+                filter_author = Q(author=self.request.user)
+            objs = objs.filter(Q(private=False) | filter_author)
         return objs.order_by(self.get_ordering())

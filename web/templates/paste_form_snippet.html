@@ -52,8 +52,14 @@
     </div>
   </div>
 </div>
-<div class='ma1'>
-  {{ form.language.label_tag }}
-  {{ form.language }}
+<div class="flex flex-row flex-wrap">
+  <div class="ma1 mr3">
+    {{ form.language.label_tag }}
+    {{ form.language }}
+  </div>
+  <div class="ma1 ml3">
+    {{ form.private.label_tag }}
+    {{ form.private }}
+  </div>
 </div>
 <textarea class="code w-100 flex-grow-1" id="body" name="{{ form.body.html_name }}" placeholder="Your text here">{{ form.body.value|default:'' }}</textarea>

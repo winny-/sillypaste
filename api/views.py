@@ -43,6 +43,7 @@ class PasteViewSet(viewsets.ModelViewSet):
     serializer_class = PasteSerializer
     queryset = Paste.objects.all()
 
+    # XXX This should hide private pastes that belong to other users.
     def get_queryset(self):
         return Paste.objects.filter_fulltext(
             self.request.query_params.get('q')

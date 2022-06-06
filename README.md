@@ -7,6 +7,8 @@ use.
 
 See example instance [here](https://sillypaste.herokuapp.com/).
 
+See the supplemental [developer notes](./notes.org) (todo etc).
+
 ## Features
 
 - Upload text with a title.  Users can modify and delete their content.

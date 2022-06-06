@@ -70,6 +70,14 @@
       <dt class="h-20 f4 b">Syntax</dt>
       <dd class="h-80 ma0">{% if paste.language %}{{ paste.language.name }}{% else %}None{% endif %}</dd>
     </div>
+    <div class="flex flex-column ma3">
+      <dt class="h-20 f4 b">Private</dt>
+      <dd class="h-80 ma0">{% if paste.private %}
+        <span class="green">✓</span> Yes
+      {% else %}
+        <span class="red">✗</span> No
+      {% endif %}</dd>
+    </div>
   </dl>
   {% if paste.renderable %}
     <div class="flex flex-row flex-wrap justify-between bg-gold black bb ba-ns dn-p mb1">

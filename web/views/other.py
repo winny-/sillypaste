@@ -30,8 +30,10 @@ def index(request):
         request,
         'index.html',
         {
-            'recent': Paste.objects.order_by('-timestamp')[:20],
-            'top': Paste.objects.filter(hits__gt=0).order_by('-hits')[:5],
+            'recent': Paste.public_objects.order_by('-timestamp')[:20],
+            'top': Paste.public_objects.filter(
+                hits__gt=0, private=False
+            ).order_by('-hits')[:5],
         },
     )
 

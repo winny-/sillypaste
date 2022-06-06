@@ -13,7 +13,7 @@ __all__ = ['PasteForm']
 class PasteForm(forms.ModelForm):
     class Meta:
         model = Paste
-        fields = ['expiry', 'title', 'language', 'body']
+        fields = ['expiry', 'title', 'language', 'body', 'private']
 
     CUSTOM_EXPIRY_DATE_FORMAT = '%Y-%m-%d'
     CUSTOM_EXPIRY_TIME_FORMAT = '%H:%M:%S'
