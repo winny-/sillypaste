@@ -29,7 +29,8 @@ class PasteSerializer(serializers.HyperlinkedModelSerializer):
         read_only_fields = ['id', 'freeze_hits', 'hits']
 
     def validate_expiry(self, value):
-        validate_future_datetime(value)
+        if value is not None:  # JSON null means no expiry.
+            validate_future_datetime(value)
         return value
 
 
