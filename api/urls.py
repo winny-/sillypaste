@@ -7,6 +7,6 @@ from .views import logout
 urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include(router.urls)),
-    path('api/login/', obtain_auth_token),
-    path('api/logout/', logout),
+    path('api/login/', obtain_auth_token, name='api-login'),
+    path('api/logout/', logout, name='api-logout'),
 ]
