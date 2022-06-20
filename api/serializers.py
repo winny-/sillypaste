@@ -4,14 +4,14 @@ from rest_framework import serializers
 from core.validators import validate_future_datetime
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'is_staff']
         read_only_fields = ['id', 'username', 'is_staff']
 
 
-class PasteSerializer(serializers.HyperlinkedModelSerializer):
+class PasteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paste
         fields = [
@@ -33,15 +33,20 @@ class PasteSerializer(serializers.HyperlinkedModelSerializer):
             validate_future_datetime(value)
         return value
 
+    def validate_author(self, value):
+        if value is None:  # No anonymous pastes on API.
+            value = self.context['request'].user
+        return value
 
-class LanguageSerializer(serializers.HyperlinkedModelSerializer):
+
+class LanguageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Language
         fields = ['id', 'name']
         read_only_fields = ['id']
 
 
-class ExpiryLogSerializer(serializers.HyperlinkedModelSerializer):
+class ExpiryLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExpiryLog
         fields = [
