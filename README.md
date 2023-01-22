@@ -29,7 +29,7 @@ See the supplemental [developer notes](./notes.org) (todo etc).
 Provided by [django-watchman][django-watchman].  See the following URLs:
 
 | Path                 | Description                      |
-|----------------------|----------------------------------|
+| -------------------- | -------------------------------- |
 | `/health/`           | JSON endpoint                    |
 | `/health/ping/`      | Get a 200 OK and simple response |
 | `/health/dashboard/` | Human readable dashboard         |
@@ -39,3 +39,22 @@ Provided by [django-watchman][django-watchman].  See the following URLs:
 ## LICENSE
 
 Unlicense.  See [LICENSE](./LICENSE).
+
+## develop locally
+
+*requirements:
+- python
+- (optional if you dont have PostGres installed locally)pg_config(install `libpq-dev` on Debian/Ubuntu; `libpq-devel` on CentOS/Fedora/Cygwin/Babun)
+- (on Debian/Ubuntu) - make sure `python3` command is "aliased" to `python`:
+    ```bash
+    sudo apt-get install python-dev-is-python3
+    ```
+
+### install app locally to a python virtual environment
+
+```bash
+python -m venv env
+source env/bin/activate
+pip install -r requirements
+python manage.py runserver
+```
