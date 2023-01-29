@@ -16,7 +16,7 @@ Including another URLconf
 
 
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, re_path
 
 from . import views
 
@@ -43,7 +43,11 @@ urlpatterns = [
     path('<int:pk>/delete', views.PasteDelete.as_view(), name='delete_paste'),
     path('<int:pk>/edit', views.PasteUpdate.as_view(), name='edit_paste'),
     path('all', views.ListPastes.as_view(), name='all_pastes'),
-    path('<int:paste_id>/raw', views.show_raw, name='show_raw'),
+    re_path(
+        r'(?P<paste_id>[0-9]+)/raw(?:/[^/]+)?$',
+        views.show_raw,
+        name='show_raw',
+    ),
     path('<int:paste_id>/render', views.render_paste, name='render_paste'),
     path('stats', views.show_site_stats, name='show_site_stats'),
     path('profile/<username>', views.Profile.as_view(), name='profile'),
