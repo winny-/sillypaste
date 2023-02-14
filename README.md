@@ -22,7 +22,6 @@ See the supplemental [developer notes](./notes.org) (todo etc).
 - Basic search support (See the "All Pastes" page)
 - HTML Rendering of Markdown and Org Mode documents.
 - Healthchecks
-- Prometheus exporter for stats
 
 ### Health checks
 

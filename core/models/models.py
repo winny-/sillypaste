@@ -5,7 +5,6 @@ from django.core.validators import validate_comma_separated_integer_list
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from collections import namedtuple
-from django_prometheus.models import ExportModelOperationsMixin
 
 
 __all__ = ['Paste', 'Language', 'ExpiryLog']
@@ -27,7 +26,7 @@ class PublicPasteManager(PasteManager):
         return super().get_queryset().filter(private=False)
 
 
-class Paste(ExportModelOperationsMixin('paste'), models.Model):
+class Paste(models.Model):
     class Meta:
         ordering = ('pk',)
 
@@ -92,7 +91,7 @@ class Paste(ExportModelOperationsMixin('paste'), models.Model):
         return self.title.replace('/', '_')
 
 
-class Language(ExportModelOperationsMixin('language'), models.Model):
+class Language(models.Model):
 
     # Used to always ensure they are valid.
     RENDERABLE_LANGUAGES = frozenset({'markdown', 'org-mode'})
@@ -106,7 +105,7 @@ class Language(ExportModelOperationsMixin('language'), models.Model):
         return self.name
 
 
-class ExpiryLog(ExportModelOperationsMixin('expirylog'), models.Model):
+class ExpiryLog(models.Model):
 
     MAX_ENTRIES = 200
 
