@@ -8,7 +8,7 @@ jobs:
       - name: Checkout action
         uses: actions/checkout@v2
       - name: Django Coverage action
-        uses: dc740/django-coveragepy-github-action@0.9
+        uses: winny-/django-coveragepy-github-action@81e3d52d4c562bb8a0256f0337ba3cdfc264e608
         with:
           django-app: 'core'
   test_api:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout action
         uses: actions/checkout@v2
       - name: Django Coverage action
-        uses: dc740/django-coveragepy-github-action@0.9
+        uses: winny-/django-coveragepy-github-action@81e3d52d4c562bb8a0256f0337ba3cdfc264e608
         with:
           django-app: 'api'
   test_web:
@@ -28,6 +28,6 @@ jobs:
       - name: Checkout action
         uses: actions/checkout@v2
       - name: Django Coverage action
-        uses: dc740/django-coveragepy-github-action@0.9
+        uses: winny-/django-coveragepy-github-action@81e3d52d4c562bb8a0256f0337ba3cdfc264e608
         with:
           django-app: 'web'
