@@ -49,10 +49,12 @@ INSTALLED_APPS = [
     'lazysignup',
     'watchman',
     'django_prometheus',
+    'canonical_domain',
 ]
 
 MIDDLEWARE = [
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    'canonical_domain.middleware.canonical_domain',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -151,10 +153,12 @@ STATICFILES_STORAGE = (
     'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 )
 
+
 # Only redirect on heroku.  Every other deployment environment I am targeting
 # handles this for the application.  And locally one probably does not have
 # HTTPS set up.
 if 'DYNO' in os.environ:
+    SECURE_SSL_HOST = 'sillypaste.winny.tech'
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
     INSTALLED_APPS.remove('livereload')
