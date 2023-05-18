@@ -161,18 +161,6 @@ STORAGES = {
 }
 
 
-if 'DYNO' in os.environ or 'PRODUCTION' in os.environ:
+if 'PRODUCTION' in os.environ:
     INSTALLED_APPS.remove('livereload')
     MIDDLEWARE.remove('livereload.middleware.LiveReloadScript')
-
-
-# Only redirect on heroku.  Every other deployment environment I am targeting
-# handles this for the application.  And locally one probably does not have
-# HTTPS set up.
-if 'DYNO' in os.environ:
-    SECURE_SSL_HOST = 'sillypaste.winny.tech'
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = True
-    import django_heroku  # noqa: E402
-
-    django_heroku.settings(locals())

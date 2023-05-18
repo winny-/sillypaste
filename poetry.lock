@@ -68,20 +68,6 @@ Django = ">=3.2"
 tests = ["coverage"]
 
 [[package]]
-name = "django-heroku"
-version = "0.3.1"
-description = "This is a Django library for Heroku apps."
-category = "main"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-dj-database-url = ">=0.5.0"
-django = "*"
-psycopg2 = "*"
-whitenoise = "*"
-
-[[package]]
 name = "django-lazysignup"
 version = "2.0.0"
 description = "Lazy signup for Django"
@@ -298,7 +284,7 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "d22aa9999bb33efc85c5b82f68d136c3db21edf3fb2bc3f82e17b2bfc0850112"
+content-hash = "205c16cb719062b994a30f3fbd78776dbd2c4954ae9035af93ecf0933943d796"
 
 [metadata.files]
 asgiref = [
@@ -320,10 +306,6 @@ django = [
 django-canonical-domain = [
     {file = "django_canonical_domain-0.9.2-py3-none-any.whl", hash = "sha256:8c5dd4ff27f8140bdbea61d01324c3cf308cc5c306173cdf6067f47239e77492"},
     {file = "django_canonical_domain-0.9.2.tar.gz", hash = "sha256:c377ea325e35abda4b0c7014a590301acfb0be1030757ec5e8690ce9b90cc29c"},
-]
-django-heroku = [
-    {file = "django-heroku-0.3.1.tar.gz", hash = "sha256:6af4bc3ae4a9b55eaad6dbe5164918982d2762661aebc9f83d9fa49f6009514e"},
-    {file = "django_heroku-0.3.1-py2.py3-none-any.whl", hash = "sha256:2bc690aab89eedbe01311752320a9a12e7548e3b0ed102681acc5736a41a4762"},
 ]
 django-lazysignup = []
 django-livereload-server = [
