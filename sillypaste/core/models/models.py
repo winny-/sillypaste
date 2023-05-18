@@ -81,15 +81,6 @@ class Paste(models.Model):
             and self.language.name in Language.RENDERABLE_LANGUAGES
         )
 
-    @property
-    def normalized_title(self):
-        """Get a title that can be used as a filename (i.e. no '/' in it).
-
-        TODO think of the children (Windows ecosystem)
-        https://stackoverflow.com/questions/1976007/what-characters-are-forbidden-in-windows-and-linux-directory-names
-        """
-        return self.title.replace('/', '_')
-
 
 class Language(models.Model):
 

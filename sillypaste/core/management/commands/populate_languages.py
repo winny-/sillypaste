@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from core.models import Language
+from sillypaste.core.models import Language
 from pygments import lexers
 import sys
 

@@ -4,9 +4,9 @@ import sys
 from dotenv import load_dotenv
 
 
-if __name__ == "__main__":
+def main():
     load_dotenv()
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sillypaste.settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sillypaste.cfg.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError:
@@ -23,3 +23,7 @@ if __name__ == "__main__":
             )
         raise
     execute_from_command_line(sys.argv)
+
+
+if __name__ == "__main__":
+    main()

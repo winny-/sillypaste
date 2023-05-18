@@ -11,7 +11,7 @@ from django.views import generic
 from django.views.decorators.http import require_GET
 
 
-from core.models import Paste, ExpiryLog
+from sillypaste.core.models import Paste, ExpiryLog
 
 
 __all__ = ['PrivacyPolicy', 'index', 'show_site_stats']

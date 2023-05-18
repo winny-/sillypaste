@@ -1,8 +1,8 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls import handler404
-from web.urls import urlpatterns as web_urlpatterns
-from api.urls import urlpatterns as api_urlpatterns
+from sillypaste.web.urls import urlpatterns as web_urlpatterns
+from sillypaste.api.urls import urlpatterns as api_urlpatterns
 
 
 urlpatterns = [
@@ -13,4 +13,4 @@ urlpatterns = [
 ]
 
 
-handler404 = 'web.views.errors.error_404_view'  # noqa: F811
+handler404 = 'sillypaste.web.views.errors.error_404_view'  # noqa: F811

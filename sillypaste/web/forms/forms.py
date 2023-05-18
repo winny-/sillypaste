@@ -2,8 +2,8 @@ from django.utils import timezone
 from datetime import timedelta, datetime
 from django import forms
 from django.core.exceptions import ValidationError
-from core.models import Paste
-from core.validators import validate_future_datetime
+from sillypaste.core.models import Paste
+from sillypaste.core.validators import validate_future_datetime
 import pytz
 
 

@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from core.models import Language, Paste
+from sillypaste.core.models import Language, Paste
 
 
 class TestLanguage(TestCase):

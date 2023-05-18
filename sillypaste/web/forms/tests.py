@@ -1,6 +1,6 @@
 from django.test import TestCase
 from . import PasteForm
-from core.models import Language
+from sillypaste.core.models import Language
 from django.utils import timezone
 from datetime import timedelta
 

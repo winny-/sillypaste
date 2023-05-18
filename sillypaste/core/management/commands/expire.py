@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from core.models import Paste, ExpiryLog
+from sillypaste.core.models import Paste, ExpiryLog
 from django.utils import timezone
 from django.db.models import Sum
 from datetime import timedelta

@@ -12,7 +12,7 @@ def watch_extra_files(sender, **kwargs):
 
 
 class SillyPasteConfig(AppConfig):
-    name = 'sillypaste'
+    name = 'sillypaste.cfg'
 
     def ready(self):
         autoreload_started.connect(watch_extra_files)

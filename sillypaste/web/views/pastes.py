@@ -19,10 +19,10 @@ from pygments.util import ClassNotFound
 import markdown
 import orgpython
 
-from core.permissions import user_can_edit_paste, admin_using_powers
-from core.models import Paste
-from core.lazysignup import allow_lazy_user
-from web.forms import PasteForm
+from sillypaste.core.permissions import user_can_edit_paste, admin_using_powers
+from sillypaste.core.models import Paste
+from sillypaste.core.lazysignup import allow_lazy_user
+from sillypaste.web.forms import PasteForm
 
 
 __all__ = [

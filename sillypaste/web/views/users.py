@@ -14,9 +14,9 @@ from django.views import generic
 
 from lazysignup.utils import is_lazy_user
 
-from core.models import Paste
-from core.lazysignup import convert
-from web.views import ListPastes
+from sillypaste.core.models import Paste
+from sillypaste.core.lazysignup import convert
+from sillypaste.web.views import ListPastes
 
 
 __all__ = ['LoginView', 'Register', 'Profile', 'ListMyPastes']

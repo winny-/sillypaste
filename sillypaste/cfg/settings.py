@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,9 +37,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'sillypaste.apps.SillyPasteConfig',
-    'web.apps.WebConfig',
-    'core.apps.CoreConfig',
+    'sillypaste.cfg.apps.SillyPasteConfig',
+    'sillypaste.web.apps.WebConfig',
+    'sillypaste.core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +57,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'canonical_domain.middleware.canonical_domain',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,7 +67,7 @@ MIDDLEWARE = [
     'livereload.middleware.LiveReloadScript',
 ]
 
-ROOT_URLCONF = 'sillypaste.urls'
+ROOT_URLCONF = 'sillypaste.cfg.urls'
 
 TEMPLATES = [
     {
@@ -81,17 +85,16 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = 'sillypaste.wsgi.application'
+WSGI_APPLICATION = 'sillypaste.cfg.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR}/db.sqlite3'
+    ),
 }
 
 
@@ -115,7 +118,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',  # noqa: E501
     'PAGE_SIZE': 25,
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
@@ -145,10 +148,13 @@ LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = (
-    'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-)
+STORAGES = {
+    "staticfiles": {
+        'BACKEND': "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
+}
 
 
 # Only redirect on heroku.  Every other deployment environment I am targeting
@@ -160,8 +166,6 @@ if 'DYNO' in os.environ:
     SECURE_SSL_REDIRECT = True
     INSTALLED_APPS.remove('livereload')
     MIDDLEWARE.remove('livereload.middleware.LiveReloadScript')
+    import django_heroku  # noqa: E402
 
-
-import django_heroku  # noqa: E402
-
-django_heroku.settings(locals())
+    django_heroku.settings(locals())

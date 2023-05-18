@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
-from core.models import Paste, ExpiryLog, Language
+from sillypaste.core.models import Paste, ExpiryLog, Language
 from rest_framework import serializers
-from core.validators import validate_future_datetime
+from sillypaste.core.validators import validate_future_datetime
 
 
 class UserSerializer(serializers.ModelSerializer):
