@@ -1,0 +1,1 @@
+*/15 * * * * echo 'EXPIRE START' && sillypaste expire && echo 'EXPIRE END'
