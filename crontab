@@ -1,1 +1,5 @@
-*/15 * * * * echo 'EXPIRE START' && sillypaste expire && echo 'EXPIRE END'
+# IDK why but */15 doesn't seem to run every 15 minutes with busybox cron, nor
+# on the quarter of the hour.  But */1 does seem to work, so just use that for
+# now.  I desperately want to conclude my time with heroku so this is a worthy
+# compromise.
+*/1 * * * * echo 'EXPIRE START' && sillypaste expire && echo 'EXPIRE END'

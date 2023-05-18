@@ -4,7 +4,8 @@ services:
     build: .
     ports:
       - "8000:8000"
-  #   environment:
+    environment:
+      DJANGO_ALLOWED_HOSTS: 'localhost'
   #     DATABASE_URL: 'postgres://postgres:BoPhoz4Oolahghoow2iengei7aum8a'
   # db:
   #   image: postgres:15

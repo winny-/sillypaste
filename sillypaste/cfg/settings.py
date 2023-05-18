@@ -23,10 +23,14 @@ BASE_DIR = os.path.dirname(
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')d(oo$#^p9z0=b-@0&^dlirnq-)3r&d+p(eogq*i7#ae6iij&p'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY', ')d(oo$#^p9z0=b-@0&^dlirnq-)3r&d+p(eogq*i7#ae6iij&p'
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
+# SECURITY WARNING: don't run with debug turned on in production!  FIXME Enable
+# configuration at runtime.  For some reason checking the environment seems to
+# break this.
+DEBUG = False
 
 ALLOWED_HOSTS = [
     h.strip()

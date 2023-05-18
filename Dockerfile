@@ -12,4 +12,4 @@ COPY crontab /etc/crontabs/root
 WORKDIR /app
 EXPOSE 8000
 
-CMD crond -l 2 -L /dev/stdout && sillypaste serve
+CMD crond && sillypaste serve
