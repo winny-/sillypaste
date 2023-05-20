@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'sillypaste.cfg.apps.SillyPasteConfig',
     'sillypaste.web.apps.WebConfig',
     'sillypaste.core.apps.CoreConfig',
+    'sillypaste.api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -95,6 +96,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sillypaste.cfg.wsgi.application'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases

@@ -4,3 +4,4 @@ __pycache__
 .git
 fly.toml
 docker-compose.yml
+venv

@@ -14,8 +14,7 @@ class AuthTests(APITestCase):
     Test user login/logout
     """
 
-    # WHY CAN I NOT JUST USE A LABEL WHAT THE HECK?
-    fixtures = ['api/fixtures/user_janedoe.json']
+    fixtures = ['user_janedoe']
 
     def setUp(self):
         self.user = User.objects.get(username='janedoe')

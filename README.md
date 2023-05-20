@@ -57,7 +57,7 @@ poetry run python -m sillypaste prepare &&
     poetry run python -m sillypaste runserver
 ```
 
-It will use a =db.sqlite3= in the project directory.
+It will use a `db.sqlite3` in the project directory.  You can change this by setting up `DATABASE_URL` (see possible forms [here](https://github.com/jazzband/dj-database-url#url-schema)).
 
 ## LICENSE
 
