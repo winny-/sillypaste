@@ -5,7 +5,7 @@
 Yet another Django pastebin.  Written for a lab and later improved for casual
 use.
 
-See example instance [here](https://sillypaste.herokuapp.com/).
+See example instance [here](https://paste.winny.tech/).
 
 See the supplemental [developer notes](./notes.org) (todo etc).
 
@@ -34,6 +34,30 @@ Provided by [django-watchman][django-watchman].  See the following URLs:
 | `/health/dashboard/` | Human readable dashboard         |
 
 [django-watchman]: https://github.com/mwarkentin/django-watchman
+
+## Contributing
+
+### Running Sillypaste
+
+#### Run with Docker
+
+```bash
+docker-compose up
+```
+
+The database will be a Postgresql database with a named volume that is not
+mapped into the host filesystem.
+
+#### Run In place
+
+Code hot-reloading doesn't work in Docker.  You can run sillypaste in place via:
+
+```bash
+poetry run python -m sillypaste prepare &&
+    poetry run python -m sillypaste runserver
+```
+
+It will use a =db.sqlite3= in the project directory.
 
 ## LICENSE
 

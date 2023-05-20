@@ -1,14 +1,19 @@
 version: '3.9'
 services:
   sillypaste:
+    restart: always
+    depends_on:
+      - db
     build: .
     ports:
       - "8000:8000"
     environment:
       DJANGO_ALLOWED_HOSTS: 'localhost'
-  #     DATABASE_URL: 'postgres://postgres:BoPhoz4Oolahghoow2iengei7aum8a'
-  # db:
-  #   image: postgres:15
-  #   restart: always
-  #   environment:
-  #     PASTGRES_PASSWORD: BoPhoz4Oolahghoow2iengei7aum8a
+      DATABASE_URL: 'postgres://sillypaste:eceeyei4eh1Ohpaexais8bahgh5noh@db/sillypaste'
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 'vie8eimaivuoL8naeQuiesh7oubie0'
+    volumes:
+      - './docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro'
