@@ -3,7 +3,7 @@ Views that deal with Pastes.
 """
 
 
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
@@ -20,6 +20,7 @@ import markdown
 import orgpython
 
 from sillypaste.core.permissions import user_can_edit_paste, admin_using_powers
+from sillypaste.core.validators import validate_paste_sort_key
 from sillypaste.core.models import Paste
 from sillypaste.core.lazysignup import allow_lazy_user
 from sillypaste.web.forms import PasteForm
@@ -152,9 +153,14 @@ class ListPastes(generic.ListView):
     template_name = 'paste_list.html'
 
     def get(self, *args, **kwargs):
-        if self.request.GET.get('sort', 'id') not in (
-            f.name for f in Paste._meta.get_fields()
-        ):
+        """Clean URL parameter 'sort'.
+
+        When sort parameter is found invalid, just strip it out and set a
+        default sort parameter instead.
+        """
+        try:
+            validate_paste_sort_key(self.request.GET.get('sort', 'id'))
+        except ValidationError:
             get = self.request.GET.copy()
             del get['sort']
             params = get.urlencode()
@@ -173,9 +179,15 @@ class ListPastes(generic.ListView):
 
     def get_queryset(self):
         objs = Paste.objects.filter_fulltext(self.request.GET.get('q'))
-        if not self.request.user.is_staff:
-            filter_author = Q()
-            if not self.request.user.is_anonymous:
-                filter_author = Q(author=self.request.user)
+
+        # TODO Reevaluate if staff should be able to all pastes regardless of
+        # privacy.  The Django Admin app can be used to administrate pastes
+        # outside of this webapp.
+        if (
+            self.request.user.is_authenticated
+            and not self.request.user.is_staff
+        ):
+            filter_author = Q(author=self.request.user)
             objs = objs.filter(Q(private=False) | filter_author)
-        return objs.order_by(self.get_ordering())
+
+        return objs.order_by(self.request.GET.get('sort', 'id'))
