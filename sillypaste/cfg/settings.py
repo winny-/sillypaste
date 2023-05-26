@@ -140,8 +140,10 @@ REST_FRAMEWORK = {
     ],
     'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
     ],
+    'ORDERING_PARAM': 'sort',
 }
 
 # Internationalization
