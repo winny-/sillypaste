@@ -54,9 +54,9 @@ class TestPaste(TestCase):
     def test_get_absolute_url(self):
         """Used to get a permalink in the templates."""
         p = Paste.objects.create(title='title', body='body')
-        self.assertEqual(p.get_absolute_url(), f'/{p.pk}')
+        self.assertEqual(p.get_absolute_url(), f'/{p.pk}/')
         p2 = Paste.objects.create(title='title2', body='body2')
-        self.assertEqual(p2.get_absolute_url(), f'/{p2.pk}')
+        self.assertEqual(p2.get_absolute_url(), f'/{p2.pk}/')
 
     def test_size(self):
         """Test size set based on title + body size"""
