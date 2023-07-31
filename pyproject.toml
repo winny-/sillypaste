@@ -40,6 +40,9 @@ django-livereload-server.version = "^0.3.2"
 
 [tool.poetry.dev-dependencies]
 
+[tool.poetry.group.dev.dependencies]
+coverage = "^7.2.7"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

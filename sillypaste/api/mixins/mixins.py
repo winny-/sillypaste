@@ -1,3 +1,6 @@
+__all__ = ['ActionPermissionMixin']
+
+
 class ActionPermissionMixin(object):
     """
     Set permissions per action (falling back on permission_classes)
