@@ -10,6 +10,17 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         base = sys.argv[: sys.argv.index('serve')]
         subprocess.run(base + ['prepare'])
+
+        # See flag args here:
+        #   https://docs.gunicorn.org/en/stable/settings.html
         os.execlp(
-            "gunicorn", "gunicorn", "-b", "0.0.0.0:8000", "sillypaste.cfg.wsgi"
+            "gunicorn",
+            "gunicorn",
+            # Bind to an address:port.
+            "-b",
+            "0.0.0.0:8000",
+            # Log traffic to stdout.
+            "--access-logfile",
+            "-",
+            "sillypaste.cfg.wsgi",
         )
