@@ -22,5 +22,8 @@ class Command(BaseCommand):
             # Log traffic to stdout.
             "--access-logfile",
             "-",
+            # Via https://stackoverflow.com/a/51723071/2720026
+            "--capture-output",
+            "--enable-stdio-inheritance",
             "sillypaste.cfg.wsgi",
         )

@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'sillypaste.core.middleware.ExceptionLoggingMiddleware',
     'livereload.middleware.LiveReloadScript',
 ]
 
@@ -172,6 +173,16 @@ STORAGES = {
     }
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+        },
+    },
+}
 
 if 'PRODUCTION' in os.environ:
     INSTALLED_APPS.remove('livereload')

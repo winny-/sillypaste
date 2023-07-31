@@ -159,7 +159,7 @@ class ListPastes(generic.ListView):
         default sort parameter instead.
         """
         try:
-            validate_paste_sort_key(self.request.GET.get('sort', 'id'))
+            validate_paste_sort_key(self.request.GET.get('sort') or 'id')
         except ValidationError:
             get = self.request.GET.copy()
             del get['sort']
@@ -190,4 +190,4 @@ class ListPastes(generic.ListView):
             filter_author = Q(author=self.request.user)
             objs = objs.filter(Q(private=False) | filter_author)
 
-        return objs.order_by(self.request.GET.get('sort', 'id'))
+        return objs.order_by(self.get_ordering())
