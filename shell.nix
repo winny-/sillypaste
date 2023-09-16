@@ -4,7 +4,7 @@ stdenv.mkDerivation {
   name = "sillypaste";
   buildInputs = [
     python3
-    python3Packages.poetry
+    poetry
     pre-commit
     postgresql
   ];
